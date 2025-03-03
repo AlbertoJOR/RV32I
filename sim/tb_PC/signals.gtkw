@@ -1,0 +1,31 @@
+[*]
+[*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
+[*] Sun Mar  2 22:33:07 2025
+[*]
+[dumpfile] "/home/ajor/Documents/GitHub/RV32I/sim/tb_PC/wave.vcd"
+[dumpfile_mtime] "Sun Mar  2 22:32:54 2025"
+[dumpfile_size] 4988
+[savefile] "/home/ajor/Documents/GitHub/RV32I/sim/tb_PC/signals.gtkw"
+[timestart] 0
+[size] 2880 1686
+[pos] -1 -1
+*-23.136467 10000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] tb_pc.
+[sst_width] 388
+[signals_width] 282
+[sst_expanded] 1
+[sst_vpaned_height] 499
+@28
+tb_pc.uut.clk
+tb_pc.uut.reset
+tb_pc.uut.branch
+@22
+tb_pc.uut.immext[31:0]
+tb_pc.uut.pc_next[31:0]
+tb_pc.uut.pc_plus4[31:0]
+tb_pc.uut.pc_reg[31:0]
+@23
+[color] 3
+tb_pc.uut.pc_out[31:0]
+[pattern_trace] 1
+[pattern_trace] 0

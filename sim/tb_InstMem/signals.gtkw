@@ -1,0 +1,22 @@
+[*]
+[*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
+[*] Mon Mar  3 00:36:17 2025
+[*]
+[dumpfile] "/home/ajor/Documents/GitHub/RV32I/sim/tb_InstMem/wave.vcd"
+[dumpfile_mtime] "Mon Mar  3 00:35:18 2025"
+[dumpfile_size] 1510
+[savefile] "/home/ajor/Documents/GitHub/RV32I/sim/tb_InstMem/signals.gtkw"
+[timestart] 0
+[size] 2880 1686
+[pos] -165 -165
+*-23.089354 35780000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] tb_instmem.
+[sst_width] 388
+[signals_width] 210
+[sst_expanded] 1
+[sst_vpaned_height] 499
+@22
+tb_instmem.uut.addr[31:0]
+tb_instmem.uut.inst[31:0]
+[pattern_trace] 1
+[pattern_trace] 0
