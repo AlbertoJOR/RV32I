@@ -1,0 +1,37 @@
+[*]
+[*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
+[*] Tue Mar  4 01:36:06 2025
+[*]
+[dumpfile] "/home/ajor/Documents/GitHub/RV32I/sim/tb_RegFile/wave.vcd"
+[dumpfile_mtime] "Tue Mar  4 01:35:00 2025"
+[dumpfile_size] 3323
+[savefile] "/home/ajor/Documents/GitHub/RV32I/sim/tb_RegFile/signals.gtkw"
+[timestart] 0
+[size] 2880 1686
+[pos] -1 -1
+*-24.160612 67600000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] tb_regfile.
+[sst_width] 388
+[signals_width] 318
+[sst_expanded] 1
+[sst_vpaned_height] 499
+@28
+tb_regfile.uut.clk
+tb_regfile.uut.reset
+@24
+[color] 2
+tb_regfile.uut.read_data1[31:0]
+@25
+[color] 3
+tb_regfile.uut.read_data2[31:0]
+@22
+tb_regfile.uut.read_reg1[4:0]
+tb_regfile.uut.read_reg2[4:0]
+@24
+tb_regfile.uut.write_data[31:0]
+@28
+tb_regfile.uut.write_enable
+@22
+tb_regfile.uut.write_reg[4:0]
+[pattern_trace] 1
+[pattern_trace] 0
