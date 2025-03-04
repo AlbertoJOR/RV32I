@@ -38,6 +38,5 @@ begin
                    imm_s when "01",  -- Store (S-Type)
                    imm_b when "10",  -- Branch (B-Type)
                    imm_b when "11",  -- Branch
-                   (others => '0') when others; -- Default (0)
-
+                   (others => '0') when others; 
 end Behavioral;
