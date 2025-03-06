@@ -6,8 +6,8 @@ use IEEE.NUMERIC_STD.ALL;
 entity RAM is
     Port (
         clk      : in  STD_LOGIC;
-        reset    : in  STD_LOGIC;  -- Reset sincrónico
-        we       : in  STD_LOGIC;  -- Write Enable
+        reset    : in  STD_LOGIC;  
+        we       : in  STD_LOGIC;  
         addr     : in  STD_LOGIC_VECTOR(31 downto 0); -- Byte address
         din      : in  STD_LOGIC_VECTOR(31 downto 0); -- Data input (for store)
         funct3   : in  STD_LOGIC_VECTOR(2 downto 0);  -- Selects lw, lh, lb, sw, sh, sb
@@ -30,7 +30,7 @@ begin
         if rising_edge(clk) then
             if reset = '1' then
                 -- Resetear toda la memoria
-                memory <= (others => (others => '0'));  -- Se pone toda la memoria a 0
+                memory <= (others => (others => '0'));  
             elsif we = '1' then  -- Escritura
                 case funct3 is
                     when "010" => -- sw (Store Word)

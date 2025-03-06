@@ -5,7 +5,7 @@ use IEEE.NUMERIC_STD.ALL;
 entity ControlUnit is
     Port (
         OpCode     : in  STD_LOGIC_VECTOR(6 downto 0); -- Opcode de la instrucción
-        rst        : in STD_LOGIC;
+        reset        : in STD_LOGIC;
         nop        : in STD_LOGIC;
         Jump     : out STD_LOGIC;
         ALUSrc     : out STD_LOGIC;
@@ -20,9 +20,9 @@ end ControlUnit;
 
 architecture Behavioral of ControlUnit is
 begin
-    process(OpCode, rst, nop)
+    process(OpCode, reset, nop)
     begin
-        if (rst = '1' or nop = '1') then 
+        if (reset = '1' or nop = '1') then 
                 Jump   <= '0';
                 ALUSrc   <= '0';
                 MemtoReg <= '0';
