@@ -1,37 +1,34 @@
 [*]
 [*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
-[*] Tue Mar  4 01:36:06 2025
+[*] Thu Mar  6 18:37:08 2025
 [*]
-[dumpfile] "/home/ajor/Documents/GitHub/RV32I/sim/tb_RegFile/wave.vcd"
-[dumpfile_mtime] "Tue Mar  4 01:35:00 2025"
-[dumpfile_size] 3323
+[dumpfile] "/home/ajor/Documents/GitHub/RV32I/sim/tb_RegFile/wave.ghw"
+[dumpfile_mtime] "Thu Mar  6 18:36:05 2025"
+[dumpfile_size] 4820
 [savefile] "/home/ajor/Documents/GitHub/RV32I/sim/tb_RegFile/signals.gtkw"
-[timestart] 0
+[timestart] 24660000
 [size] 2880 1686
 [pos] -1 -1
-*-24.160612 67600000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
-[treeopen] tb_regfile.
+*-23.160612 92870000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.tb_regfile.
 [sst_width] 388
 [signals_width] 318
 [sst_expanded] 1
 [sst_vpaned_height] 499
 @28
-tb_regfile.uut.clk
-tb_regfile.uut.reset
-@24
-[color] 2
-tb_regfile.uut.read_data1[31:0]
-@25
-[color] 3
-tb_regfile.uut.read_data2[31:0]
+top.tb_regfile.uut.reset
+top.tb_regfile.uut.clk
 @22
-tb_regfile.uut.read_reg1[4:0]
-tb_regfile.uut.read_reg2[4:0]
-@24
-tb_regfile.uut.write_data[31:0]
+#{top.tb_regfile.read_data2[31:0]} top.tb_regfile.read_data2[31] top.tb_regfile.read_data2[30] top.tb_regfile.read_data2[29] top.tb_regfile.read_data2[28] top.tb_regfile.read_data2[27] top.tb_regfile.read_data2[26] top.tb_regfile.read_data2[25] top.tb_regfile.read_data2[24] top.tb_regfile.read_data2[23] top.tb_regfile.read_data2[22] top.tb_regfile.read_data2[21] top.tb_regfile.read_data2[20] top.tb_regfile.read_data2[19] top.tb_regfile.read_data2[18] top.tb_regfile.read_data2[17] top.tb_regfile.read_data2[16] top.tb_regfile.read_data2[15] top.tb_regfile.read_data2[14] top.tb_regfile.read_data2[13] top.tb_regfile.read_data2[12] top.tb_regfile.read_data2[11] top.tb_regfile.read_data2[10] top.tb_regfile.read_data2[9] top.tb_regfile.read_data2[8] top.tb_regfile.read_data2[7] top.tb_regfile.read_data2[6] top.tb_regfile.read_data2[5] top.tb_regfile.read_data2[4] top.tb_regfile.read_data2[3] top.tb_regfile.read_data2[2] top.tb_regfile.read_data2[1] top.tb_regfile.read_data2[0]
+#{top.tb_regfile.read_data1[31:0]} top.tb_regfile.read_data1[31] top.tb_regfile.read_data1[30] top.tb_regfile.read_data1[29] top.tb_regfile.read_data1[28] top.tb_regfile.read_data1[27] top.tb_regfile.read_data1[26] top.tb_regfile.read_data1[25] top.tb_regfile.read_data1[24] top.tb_regfile.read_data1[23] top.tb_regfile.read_data1[22] top.tb_regfile.read_data1[21] top.tb_regfile.read_data1[20] top.tb_regfile.read_data1[19] top.tb_regfile.read_data1[18] top.tb_regfile.read_data1[17] top.tb_regfile.read_data1[16] top.tb_regfile.read_data1[15] top.tb_regfile.read_data1[14] top.tb_regfile.read_data1[13] top.tb_regfile.read_data1[12] top.tb_regfile.read_data1[11] top.tb_regfile.read_data1[10] top.tb_regfile.read_data1[9] top.tb_regfile.read_data1[8] top.tb_regfile.read_data1[7] top.tb_regfile.read_data1[6] top.tb_regfile.read_data1[5] top.tb_regfile.read_data1[4] top.tb_regfile.read_data1[3] top.tb_regfile.read_data1[2] top.tb_regfile.read_data1[1] top.tb_regfile.read_data1[0]
+@23
+#{top.tb_regfile.write_data[31:0]} top.tb_regfile.write_data[31] top.tb_regfile.write_data[30] top.tb_regfile.write_data[29] top.tb_regfile.write_data[28] top.tb_regfile.write_data[27] top.tb_regfile.write_data[26] top.tb_regfile.write_data[25] top.tb_regfile.write_data[24] top.tb_regfile.write_data[23] top.tb_regfile.write_data[22] top.tb_regfile.write_data[21] top.tb_regfile.write_data[20] top.tb_regfile.write_data[19] top.tb_regfile.write_data[18] top.tb_regfile.write_data[17] top.tb_regfile.write_data[16] top.tb_regfile.write_data[15] top.tb_regfile.write_data[14] top.tb_regfile.write_data[13] top.tb_regfile.write_data[12] top.tb_regfile.write_data[11] top.tb_regfile.write_data[10] top.tb_regfile.write_data[9] top.tb_regfile.write_data[8] top.tb_regfile.write_data[7] top.tb_regfile.write_data[6] top.tb_regfile.write_data[5] top.tb_regfile.write_data[4] top.tb_regfile.write_data[3] top.tb_regfile.write_data[2] top.tb_regfile.write_data[1] top.tb_regfile.write_data[0]
+@22
+#{top.tb_regfile.write_reg[4:0]} top.tb_regfile.write_reg[4] top.tb_regfile.write_reg[3] top.tb_regfile.write_reg[2] top.tb_regfile.write_reg[1] top.tb_regfile.write_reg[0]
+#{top.tb_regfile.read_reg2[4:0]} top.tb_regfile.read_reg2[4] top.tb_regfile.read_reg2[3] top.tb_regfile.read_reg2[2] top.tb_regfile.read_reg2[1] top.tb_regfile.read_reg2[0]
+#{top.tb_regfile.read_reg1[4:0]} top.tb_regfile.read_reg1[4] top.tb_regfile.read_reg1[3] top.tb_regfile.read_reg1[2] top.tb_regfile.read_reg1[1] top.tb_regfile.read_reg1[0]
 @28
-tb_regfile.uut.write_enable
-@22
-tb_regfile.uut.write_reg[4:0]
+top.tb_regfile.uut.write_enable
 [pattern_trace] 1
 [pattern_trace] 0

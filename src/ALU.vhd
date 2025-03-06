@@ -5,9 +5,9 @@ use IEEE.NUMERIC_STD.ALL;
 entity ALU is
     Port (
         A, B       : in  STD_LOGIC_VECTOR(31 downto 0);  -- Operandos
-        ALU_Ctrl   : in  STD_LOGIC_VECTOR(4 downto 0);   -- Código de operación (ALU)
+        ALU_Ctrl   : in  STD_LOGIC_VECTOR(4 downto 0);   -- Código de  Control
         Result     : out STD_LOGIC_VECTOR(31 downto 0); -- Salida de la ALU
-        Zero       : out STD_LOGIC                      -- Señal para BEQ/BNE (1 si resultado es 0)
+        Zero       : out STD_LOGIC                      -- Señal para BEQ/BNE (1 si resultado es verdadero)
     );
 end ALU;
 
@@ -17,7 +17,8 @@ architecture Behavioral of ALU is
     signal funct7b5: STD_LOGIC;
     signal isBranch: STD_LOGIC;
 begin
-    funct3 <= ALU_Ctrl(2 downto 0);
+    -- Descomponer ALU_Ctrl en 
+    funct3 <= ALU_Ctrl(2 downto 0); -- funct3
     funct7b5 <= ALU_Ctrl(3); -- valor del bit numero 5 de funct7
     isBranch <= ALU_Ctrl(4);
     
@@ -43,7 +44,8 @@ begin
             -- SLT (Set Less Than - signed)
             when "010" =>
                 if signed(A) < signed(B) then
-                    alu_result <= (others => '0'); alu_result(0) <= '1';
+                    alu_result <= (others => '0'); 
+                    alu_result(0) <= '1';
                 else
                     alu_result <= (others => '0');
                 end if;
@@ -51,7 +53,8 @@ begin
             -- SLTU (Set Less Than - unsigned)
             when "011" =>
                 if unsigned(A) < unsigned(B) then
-                    alu_result <= (others => '0'); alu_result(0) <= '1';
+                    alu_result <= (others => '0'); 
+                    alu_result(0) <= '1';
                 else
                     alu_result <= (others => '0');
                 end if;

@@ -13,6 +13,7 @@ architecture Behavioral of tb_RAM is
             clk      : in  STD_LOGIC;
             reset    : in  STD_LOGIC;  -- Reset síncrono
             we       : in  STD_LOGIC;  -- Write Enable
+            re       : in  STD_LOGIC;  -- Read Enable
             addr     : in  STD_LOGIC_VECTOR(31 downto 0); -- Byte address
             din      : in  STD_LOGIC_VECTOR(31 downto 0); -- Data input (for store)
             funct3   : in  STD_LOGIC_VECTOR(2 downto 0);  -- Selects lw, lh, lb, sw, sh, sb
@@ -24,6 +25,7 @@ architecture Behavioral of tb_RAM is
     signal clk      : STD_LOGIC := '0';
     signal reset    : STD_LOGIC := '0';  -- Signal de reset síncrono
     signal we       : STD_LOGIC := '0';
+    signal re       : STD_LOGIC := '0';
     signal addr     : STD_LOGIC_VECTOR(31 downto 0) := (others => '0');
     signal din      : STD_LOGIC_VECTOR(31 downto 0) := (others => '0');
     signal funct3   : STD_LOGIC_VECTOR(2 downto 0) := "000";  -- Set to "000" for LB by default
@@ -39,6 +41,7 @@ begin
             clk      => clk,
             reset    => reset,
             we       => we,
+            re       => re,
             addr     => addr,
             din      => din,
             funct3   => funct3,

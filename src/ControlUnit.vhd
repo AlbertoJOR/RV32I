@@ -143,7 +143,7 @@ begin
                 Branch   <= '0';
                 ALUOp    <= "00";
 
-            -- Default case (Opcodes no reconocidos)
+            
             when others =>
                 Jump   <= '0';
                 ALUSrc   <= '0';

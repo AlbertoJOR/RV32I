@@ -22,7 +22,7 @@ architecture Behavioral of PC is
 begin
     -- Lógica combinacional para PC_Plus4
     PC_Plus4  <= PC_reg + 4;
-    PC_Next <= ImmExt when branch = '1' else (others => '0') when reset = '1' else PC_Plus4;        -- MUX para seleccionar PC_Next
+    PC_Next <= ImmExt when branch = '1' else PC_Plus4;        -- MUX para seleccionar PC_Next
 
     -- Proceso para actualizar el registro del PC
     process(clk, reset)
