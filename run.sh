@@ -11,7 +11,7 @@ SRC_DIR="src"                      # Directorio donde están los archivos fuente
 TB_DIR="tb"                        # Directorio donde está el archivo de prueba (testbench)
 SIM_DIR="sim/$TOP"                 # Directorio de simulación basado en el nombre del TOP
 VHDL_SOURCES=$(find $SRC_DIR $TB_DIR -name "*.vhd")  # Todos los archivos .vhd
-ghw_FILE="$SIM_DIR/wave.ghw"       # Archivo ghw generado
+vcd_FILE="$SIM_DIR/wave.vcd"       # Archivo vcd generado
 GTKWAVE_SCRIPT="$SIM_DIR/signals.gtkw"  # Archivo de configuración para GTKWave
 CONF_TCL="conf.tcl"                # Script TCL para GTKWave
 
@@ -28,13 +28,13 @@ ghdl -a --std=08 -fsynopsys $VHDL_SOURCES
 echo "Compilando el testbench..."
 ghdl -e --std=08 -fsynopsys $TOP
 
-# Paso 3: Ejecutar la simulación con GHDL y generar el archivo ghw
+# Paso 3: Ejecutar la simulación con GHDL y generar el archivo vcd
 echo "Ejecutando simulación hasta $STOP_TIME..."
-ghdl -r --std=08 -fsynopsys $TOP --wave=$ghw_FILE --stop-time=$STOP_TIME
+ghdl -r --std=08 -fsynopsys $TOP --vcd=$vcd_FILE --stop-time=$STOP_TIME
 
 # Paso 4: Ejecutar GTKWave con los archivos generados
 echo "Abriendo GTKWave..."
-gtkwave $ghw_FILE $GTKWAVE_SCRIPT -S $CONF_TCL
+gtkwave $vcd_FILE $GTKWAVE_SCRIPT -S $CONF_TCL
 
 
 echo "Limpiando los objetos .cf"

@@ -9,23 +9,23 @@ entity Mem is
         reset       : in  STD_LOGIC;
         -- Entradas
         -- ControlUnit
-        Jump_i       : out STD_LOGIC;
-        MemtoReg_i   : out STD_LOGIC;
-        RegWrite_i   : out STD_LOGIC;
-        MemRead_i    : out STD_LOGIC;
-        MemWrite_i   : out STD_LOGIC;
-        Branch_i     : out STD_LOGIC;
+        Jump_i       : in STD_LOGIC;
+        MemtoReg_i   : in STD_LOGIC;
+        RegWrite_i   : in STD_LOGIC;
+        MemRead_i    : in STD_LOGIC;
+        MemWrite_i   : in STD_LOGIC;
+        Branch_i     : in STD_LOGIC;
 
         -- Instruction
-        funct_3_i   : out  STD_LOGIC_VECTOR(2 downto 0);
-        Write_Reg_i   : out  STD_LOGIC_VECTOR(4 downto 0);
+        funct_3_i   : in  STD_LOGIC_VECTOR(2 downto 0);
+        Write_Reg_i   : in  STD_LOGIC_VECTOR(4 downto 0);
 
         -- ALU 
-        Zero_i       : out STD_LOGIC;   
-        Result_i     : out STD_LOGIC_VECTOR(31 downto 0); 
+        Zero_i       : in STD_LOGIC;   
+        Result_i     : in STD_LOGIC_VECTOR(31 downto 0); 
         
         -- RegFile
-        Read_Data2_i   : out  STD_LOGIC_VECTOR(31 downto 0);
+        Read_Data2_i   : in  STD_LOGIC_VECTOR(31 downto 0);
 
         --Salidas
                 -- ControlUnit

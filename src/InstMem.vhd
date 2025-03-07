@@ -16,10 +16,15 @@ architecture Behavioral of InstMem is
     -- Memoria de instrucciones (array de bytes)
     type rom_array is array (0 to ROM_SIZE - 1) of std_logic_vector(7 downto 0);
     signal ROM : rom_array := (
-        X"AB", X"BB", X"CC", X"DD",  -- Instrucción 1 = 0xAABBCCDD
-        X"11", X"22", X"33", X"44",  -- Instrucción 2 = 0x11223344
-        X"55", X"66", X"77", X"88",  -- Instrucción 3 = 0x55667788
-        X"AB", X"CD", X"EF", X"12",  -- Instrucción 1 = 0xAABBCCDD
+        -- Usar el Encoder https://luplab.gitlab.io/rvcodecjs/
+        X"00", X"00", X"00", X"00",  -- nop 
+        X"00", X"a0", X"00", X"93",  -- addi x1, x0, 10     -- Cargar 10 en x1  
+        X"01", X"40", X"01", X"13",  -- addi x2, x0, 20     -- Cargar 20 en x2  
+        X"01", X"e0", X"01", X"93",  -- addi x3, x0, 30     -- Cargar 30 en x3  
+        X"02", X"80", X"02", X"13",  -- addi x4, x0, 40     -- Cargar 40 en x4  
+        X"03", X"20", X"02", X"93",  -- addi x5, x0, 50     -- Cargar 50 en x5  
+        X"00", X"20", X"83", X"33",  -- add  x6, x1, x2     -- x6 = x1 + x2  
+        X"40", X"41", X"83", X"b3",  -- sub  x7, x3, x4     -- x7 = x3 - x4  
         others => X"00"  -- Relleno con 0s
     );
 

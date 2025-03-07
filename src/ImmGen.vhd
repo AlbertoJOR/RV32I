@@ -32,7 +32,9 @@ begin
     imm_u <= instr(31 downto 12) & (11 downto 0 => '0');  
 
     with sel select 
-        imm_out <= imm_i when "00000",  -- Load (0000011) o ALU Imm (0010011)
+        imm_out <= imm_i when "00000",  -- Load (0000011)
+                   imm_i when "00100",  -- ALU Imm (0010011)
+                   imm_i when "11001",  -- Jalr (1100111)
                    imm_s when "01000",  -- Store (0100011)
                    imm_b when "11000",  -- Branch (1100011)
                    imm_j when "11011",  -- JAL (1101111)
