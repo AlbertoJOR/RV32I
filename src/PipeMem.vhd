@@ -45,9 +45,11 @@ begin
     process(clk)
     begin
         if rising_edge(clk) then
-            reg <= (others => '0');
-        else
-            reg <= MemtoReg_i & RegWrite_i & Write_Reg_i & Result_i & Data_mem_i;
+            if reset = '1' then
+                reg <= (others => '0');
+            else
+                reg <= MemtoReg_i & RegWrite_i & Write_Reg_i & Result_i & Data_mem_i;
+            end if;
         end if;
     end process; 
     MemtoReg_o  <= reg(70);

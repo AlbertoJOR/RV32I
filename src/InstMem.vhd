@@ -24,6 +24,7 @@ architecture Behavioral of InstMem is
         X"02", X"80", X"02", X"13",  -- addi x4, x0, 40     -- Cargar 40 en x4  
         X"03", X"20", X"02", X"93",  -- addi x5, x0, 50     -- Cargar 50 en x5  
         X"00", X"20", X"83", X"33",  -- add  x6, x1, x2     -- x6 = x1 + x2  
+        X"00", X"00", X"00", X"00",  -- nop 
         X"40", X"41", X"83", X"b3",  -- sub  x7, x3, x4     -- x7 = x3 - x4  
         others => X"00"  -- Relleno con 0s
     );

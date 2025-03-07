@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
-[*] Fri Mar  7 16:57:51 2025
+[*] Fri Mar  7 17:10:21 2025
 [*]
 [dumpfile] "/home/ajor/Documents/GitHub/RV32I/sim/tb_RISCV/wave.vcd"
-[dumpfile_mtime] "Fri Mar  7 16:57:41 2025"
-[dumpfile_size] 52691
+[dumpfile_mtime] "Fri Mar  7 17:10:05 2025"
+[dumpfile_size] 47032
 [savefile] "/home/ajor/Documents/GitHub/RV32I/sim/tb_RISCV/signals.gtkw"
-[timestart] 3420000
+[timestart] 96850000
 [size] 2880 1686
 [pos] 0 0
-*-22.000000 45000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-22.000000 80000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] tb_riscv.
 [treeopen] tb_riscv.dut.
 [treeopen] tb_riscv.dut.decode_c.
@@ -33,10 +33,9 @@ tb_riscv.dut.fetch_c.pc_c.pc_out[31:0]
 tb_riscv.dut.fetch_c.instmem_c.inst[31:0]
 @200
 -RegFile
-@28
-tb_riscv.dut.regwrite_4
-@29
-tb_riscv.dut.regwrite_3
+@22
+tb_riscv.dut.write_reg_4[4:0]
+tb_riscv.dut.write_reg_3[4:0]
 @24
 tb_riscv.dut.decode_c.regfile_c.read_reg1[4:0]
 tb_riscv.dut.decode_c.regfile_c.read_data1[31:0]

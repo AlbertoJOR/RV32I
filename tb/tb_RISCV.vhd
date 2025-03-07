@@ -39,6 +39,6 @@ begin
             reset <= '1';  -- Activate reset
             wait for clk_period;  -- Wait for one clock cycle with reset active
             reset <= '0'; 
-            wait for 14* clk_period;  -- Wait for one clock cycle with reset active
+            wait;  -- Wait for one clock cycle with reset active
         end process;
 end architecture;
