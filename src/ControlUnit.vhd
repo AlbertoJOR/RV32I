@@ -98,13 +98,13 @@ begin
             -- opcode(55)
             when "0110111" => 
                 Jump     <= '0';
-                ALUSrc   <= '0';
+                ALUSrc   <= '1';
                 MemtoReg <= '0';
-                RegWrite <= '0';
+                RegWrite <= '1';
                 MemRead  <= '0';
                 MemWrite <= '0';
                 Branch   <= '0';
-                ALUOp    <= "00";
+                ALUOp    <= "01";
 
             -- B inst
             -- beq, bne, blt, bge, bltu, bgeu

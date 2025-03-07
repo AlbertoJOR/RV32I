@@ -20,7 +20,9 @@ end Instruction;
 architecture Behavioral of Instruction is
 begin 
     Opcode    <= inst(6 downto 0);
-    Read_Reg1 <= inst(19 downto 15);
+    Read_Reg1 <= "00000" when (inst(6 downto 0) = "0110111" or 
+                           inst(6 downto 0) = "1101111" or 
+                           inst(6 downto 0) = "0010111")  else inst(19 downto 15); -- lui, jal, auipc requieren en 0 para sumar
     Read_Reg2 <= inst(24 downto 20);
     Write_Reg <= inst(11 downto 7);
     ALU_inst  <= inst(30) & inst(14 downto 12); 
