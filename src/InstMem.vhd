@@ -38,15 +38,17 @@ architecture Behavioral of InstMem is
         X"00", X"00", X"00", X"00",  -- nop 
         X"00", X"00", X"00", X"00",  -- nop 
         X"67", X"81", X"61", X"13", -- ori x2, x2, 0x678    -- OR con los 12 bits inferiores (0x12345678)
-        -- sh  x2, 6(x1)      -- Almacenar halfword (2 bytes) en [x1 + 4]  
-        -- sb  x2, 7(x1)      -- Almacenar byte (1 byte) en [x1 + 6] 
         X"00", X"00", X"00", X"00",  -- nop 
         X"00", X"00", X"00", X"00",  -- nop 
         X"00", X"00", X"00", X"00",  -- nop 
-        X"00", X"20", X"a0", X"23",  -- sw  x2, 0(x1)      -- Almacenar word (4 bytes) en [x1]  
-        X"00", X"00", X"a2", X"83", -- lw  x5, 0(x1)      -- Cargar word desde [x1] a x5  
-        -- lh  x6, 0(x1)      -- Cargar halfword desde [x1] a x6  
-        -- lb  x7, 0(x1)      -- Cargar byte desde [x1] a x7
+        X"00", X"20", X"a0", X"23", -- sw  x2, 0(x1)      -- Almacenar word (4 bytes) en [x1]  
+        X"00", X"20", X"93", X"23", -- sh  x2, 6(x1)      -- Almacenar halfword (2 bytes) en [x1 + 4]  
+        X"00", X"20", X"84", X"23", -- sb  x2, 8(x1)      -- Almacenar byte (1 byte) en [x1 + 6] 
+        X"00", X"00", X"a2", X"83", -- lw  x5, 0(x1)      -- Cargar halfword desde [x1] a x6  
+        X"00", X"00", X"93", X"03", -- lh  x6, 0(x1)      -- Cargar halfword desde [x1] a x6  
+        X"00", X"00", X"83", X"83", -- lb  x7, 0(x1)      -- Cargar byte desde [x1] a x7
+        X"00", X"60", X"a4", X"03", -- lw  x8, 6(x1)      -- Cargar halfword desde [x1] a x6  
+        X"00", X"80", X"a4", X"83", -- lw  x9, 8(x1)      -- Cargar halfword desde [x1] a x6  
         others => X"00"  -- Relleno con 0s
     );
 
