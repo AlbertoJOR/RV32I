@@ -29,6 +29,9 @@ entity PipeDec is
         -- RegFile
         Read_Data1_i   : in  STD_LOGIC_VECTOR(31 downto 0);
         Read_Data2_i   : in  STD_LOGIC_VECTOR(31 downto 0);
+        -- Fordwarding
+        Read_Reg1_i     : in STD_LOGIC_VECTOR(4 downto 0);
+        Read_Reg2_i     : in STD_LOGIC_VECTOR(4 downto 0);
 
 
         -- SALIDAS
@@ -52,7 +55,10 @@ entity PipeDec is
 
         -- RegFile
         Read_Data1_o   : out  STD_LOGIC_VECTOR(31 downto 0);
-        Read_Data2_o   : out  STD_LOGIC_VECTOR(31 downto 0)
+        Read_Data2_o   : out  STD_LOGIC_VECTOR(31 downto 0);
+        -- Fordwarding
+        Read_Reg1_o     : out STD_LOGIC_VECTOR(4 downto 0);
+        Read_Reg2_o     : out STD_LOGIC_VECTOR(4 downto 0)
     );
 end PipeDec;
 
@@ -72,6 +78,8 @@ architecture Behavioral of PipeDec is
     signal Write_Reg_reg     :   STD_LOGIC_VECTOR(4 downto 0)  := (others => '0');
     signal Read_Data1_reg    :   STD_LOGIC_VECTOR(31 downto 0) := (others => '0');
     signal Read_Data2_reg    :   STD_LOGIC_VECTOR(31 downto 0) := (others => '0');
+    signal Read_Reg1_reg       : STD_LOGIC_VECTOR(4 downto 0):=(others => '0');
+    signal Read_Reg2_reg       : STD_LOGIC_VECTOR(4 downto 0):=(others => '0');
 
 begin
     process(clk)
@@ -92,6 +100,8 @@ begin
                 Write_Reg_reg     <=  (others => '0');
                 Read_Data1_reg    <=  (others => '0');
                 Read_Data2_reg    <=  (others => '0');
+                Read_Reg1_reg     <=  (others => '0'); 
+                Read_Reg2_reg     <=  (others => '0'); 
         
             else  
                 Jump_reg          <=  Jump_i ;
@@ -108,6 +118,8 @@ begin
                 Write_Reg_reg     <=  Write_Reg_i;
                 Read_Data1_reg    <=  Read_Data1_i;
                 Read_Data2_reg    <=  Read_Data2_i;
+                Read_Reg1_reg     <=  Read_Reg1_i; 
+                Read_Reg2_reg     <=  Read_Reg2_i; 
             end if;
         end if;
     end process;
@@ -125,6 +137,8 @@ begin
     Write_Reg_o     <=  Write_Reg_reg;
     Read_Data1_o    <=  Read_Data1_reg;
     Read_Data2_o    <=  Read_Data2_reg;
+    Read_Reg1_o     <= Read_Reg1_reg;
+    Read_Reg2_o     <= Read_Reg2_reg;
 
 
 end Behavioral;

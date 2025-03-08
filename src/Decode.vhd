@@ -35,7 +35,11 @@ entity Decode is
 
         -- RegFile
         Read_Data1_o   : out  STD_LOGIC_VECTOR(31 downto 0);
-        Read_Data2_o   : out  STD_LOGIC_VECTOR(31 downto 0)
+        Read_Data2_o   : out  STD_LOGIC_VECTOR(31 downto 0);
+
+        -- Fordwarding
+        Read_Reg1_o     : out STD_LOGIC_VECTOR(4 downto 0);
+        Read_Reg2_o     : out STD_LOGIC_VECTOR(4 downto 0)
 
     );
 end Decode;
@@ -132,6 +136,9 @@ architecture Structural of Decode is
         -- RegFile
         Read_Data1_i   : in  STD_LOGIC_VECTOR(31 downto 0);
         Read_Data2_i   : in  STD_LOGIC_VECTOR(31 downto 0);
+        -- Fordwarding
+        Read_Reg1_i     : in STD_LOGIC_VECTOR(4 downto 0);
+        Read_Reg2_i     : in STD_LOGIC_VECTOR(4 downto 0);
 
 
         -- SALIDAS
@@ -155,7 +162,11 @@ architecture Structural of Decode is
 
         -- RegFile
         Read_Data1_o   : out  STD_LOGIC_VECTOR(31 downto 0);
-        Read_Data2_o   : out  STD_LOGIC_VECTOR(31 downto 0)
+        Read_Data2_o   : out  STD_LOGIC_VECTOR(31 downto 0);
+        
+        -- Fordwarding
+        Read_Reg1_o     : out STD_LOGIC_VECTOR(4 downto 0);
+        Read_Reg2_o     : out STD_LOGIC_VECTOR(4 downto 0)
     );
     end component;
 
@@ -242,6 +253,9 @@ begin
         Read_Data1_i  => Read_Data1_s, 
         Read_Data2_i  => Read_Data2_s, 
 
+        -- Fordwarding
+        Read_Reg1_i   => Read_Reg1_s, 
+        Read_Reg2_i   => Read_Reg2_s,
 
         -- SALIDAS
         -- ControlUnit
@@ -264,7 +278,10 @@ begin
 
         -- RegFile
         Read_Data1_o  => Read_Data1_o, 
-        Read_Data2_o  => Read_Data2_o 
+        Read_Data2_o  => Read_Data2_o,
+                -- Fordwarding
+        Read_Reg1_o   => Read_Reg1_o, 
+        Read_Reg2_o   => Read_Reg2_o 
     );
 
 end Structural;

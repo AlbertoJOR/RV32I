@@ -30,6 +30,12 @@ entity Execute is
         Read_Data1_i   : in  STD_LOGIC_VECTOR(31 downto 0);
         Read_Data2_i   : in  STD_LOGIC_VECTOR(31 downto 0);
 
+        -- Fordwarding Unit
+        MuxSel_A_i        : in STD_LOGIC_VECTOR(1 downto 0);
+        MuxSel_B_i        : in STD_LOGIC_VECTOR(1 downto 0);
+        Result_3_i        : in STD_LOGIC_VECTOR(31 downto 0);
+        Write_Data_5_i        : in STD_LOGIC_VECTOR(31 downto 0);
+
         -- Salidas
         -- ControlUnit
         Jump_o       : out STD_LOGIC;
@@ -122,13 +128,46 @@ architecture Structural of Execute is
         Read_Data2_o   : out  STD_LOGIC_VECTOR(31 downto 0)
     );
     end component;
+    -- Fordwarding Mux
+    signal MUX_A_DATA : STD_LOGIC_VECTOR(31 downto 0) := (others => '0');
+    signal MUX_B_DATA : STD_LOGIC_VECTOR(31 downto 0) := (others => '0');
 
 begin
 
     B_input <= imm_out_i when ALUSrc_i = '1' else Read_Data2_i;
+
+
+    MuxA_Ford_process: process(MuxSel_A_i, Read_Data1_i, Result_3_i, Write_Data_5_i )
+    begin
+        case MuxSel_A_i is
+            when "00" =>  
+                MUX_A_DATA <= Read_Data1_i;
+            when "01" =>  
+                MUX_A_DATA <= Write_Data_5_i;
+            when "10" =>  
+                MUX_A_DATA <= Result_3_i;
+            when others =>
+                MUX_A_DATA <= Read_Data1_i;
+        end case;
+    end process;
+
+    MuxB_Ford_process: process(MuxSel_B_i, B_input, Result_3_i, Write_Data_5_i )
+    begin
+        case MuxSel_B_i is
+            when "00" =>  
+                MUX_B_DATA <= B_input;
+            when "01" =>  
+                MUX_B_DATA <= Write_Data_5_i;
+            when "10" =>  
+                MUX_B_DATA <= Result_3_i;
+            when others =>
+                MUX_B_DATA <= B_input;
+        end case;
+    end process;
+    
     ALU_C: ALU 
         port map (
-            A          => Read_Data1_i ,
+            A          => MUX_A_DATA ,
             B          => B_input,
             ALU_Ctrl   => ALU_CTRL_s,
             Result     => Result_s,

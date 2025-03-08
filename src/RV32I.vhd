@@ -59,7 +59,11 @@ architecture Structural of RV32I is
     
             -- RegFile
             Read_Data1_o   : out  STD_LOGIC_VECTOR(31 downto 0);
-            Read_Data2_o   : out  STD_LOGIC_VECTOR(31 downto 0)
+            Read_Data2_o   : out  STD_LOGIC_VECTOR(31 downto 0);
+
+            -- Fordwarding
+            Read_Reg1_o     : out STD_LOGIC_VECTOR(4 downto 0);
+            Read_Reg2_o     : out STD_LOGIC_VECTOR(4 downto 0)
     
         );
     end component;
@@ -80,6 +84,28 @@ architecture Structural of RV32I is
     -- RegFile
     signal Read_Data1_2   :  STD_LOGIC_VECTOR(31 downto 0) := (others => '0');
     signal Read_Data2_2   :  STD_LOGIC_VECTOR(31 downto 0) := (others => '0');
+    -- Ford
+    signal Read_Reg1_2   :  STD_LOGIC_VECTOR(4 downto 0) := (others => '0');
+    signal Read_Reg2_2   :  STD_LOGIC_VECTOR(4 downto 0) := (others => '0');
+
+
+    -- Fordwarding Unit
+    component Fordwarding is
+        port (
+            Write_Reg_3     : in STD_LOGIC_VECTOR(4 downto 0);
+            Write_Reg_4     : in STD_LOGIC_VECTOR(4 downto 0);
+            RegWrite_3      : in STD_LOGIC;
+            RegWrite_4      : in STD_LOGIC;
+            Read_Reg1_2     : in STD_LOGIC_VECTOR(4 downto 0);
+            Read_Reg2_2     : in STD_LOGIC_VECTOR(4 downto 0);
+            MuxSel_A        : out STD_LOGIC_VECTOR(1 downto 0);
+            MuxSel_B        : out STD_LOGIC_VECTOR(1 downto 0)
+        );
+    end component;
+    signal MuxSel_A_F   :  STD_LOGIC_VECTOR(1 downto 0) := (others => '0');
+    signal MuxSel_B_F   :  STD_LOGIC_VECTOR(1 downto 0) := (others => '0');
+
+
 
     -- III Execution
     component Execute is
@@ -108,6 +134,12 @@ architecture Structural of RV32I is
             -- RegFile
             Read_Data1_i   : in  STD_LOGIC_VECTOR(31 downto 0);
             Read_Data2_i   : in  STD_LOGIC_VECTOR(31 downto 0);
+
+                    -- Fordwarding Unit
+            MuxSel_A_i        : in STD_LOGIC_VECTOR(1 downto 0);
+            MuxSel_B_i        : in STD_LOGIC_VECTOR(1 downto 0);
+            Result_3_i        : in STD_LOGIC_VECTOR(31 downto 0);
+            Write_Data_5_i    : in STD_LOGIC_VECTOR(31 downto 0);
     
             -- Salidas
             -- ControlUnit
@@ -257,9 +289,25 @@ begin
         
                 -- RegFile
                 Read_Data1_o  => Read_Data1_2,
-                Read_Data2_o  => Read_Data2_2 
+                Read_Data2_o  => Read_Data2_2,
+                Read_Reg1_o   => Read_Reg1_2, 
+                Read_Reg2_o   => Read_Reg2_2
         
             );
+
+    Fordwarding_c: Fordwarding
+        port map (
+            Write_Reg_3    => Write_Reg_3, 
+            Write_Reg_4    => Write_Reg_4, 
+            RegWrite_3     => RegWrite_3, 
+            RegWrite_4     => RegWrite_4, 
+            Read_Reg1_2    => Read_Reg1_2, 
+            Read_Reg2_2    => Read_Reg2_2, 
+            MuxSel_A       => MuxSel_A_F, 
+            MuxSel_B       => MuxSel_B_f 
+        );
+
+
     Execute_c : Execute
         Port map (
             clk         => clk,
@@ -286,6 +334,12 @@ begin
             -- RegFile
             Read_Data1_i   => Read_Data1_2,
             Read_Data2_i   => Read_Data2_2,
+
+            -- Fordwarding Unit
+            MuxSel_A_i       => MuxSel_A_F , 
+            MuxSel_B_i       => MuxSel_B_F, 
+            Result_3_i       => Result_3, 
+            Write_Data_5_i   => Write_Data_5, 
     
             -- Salidas
             -- ControlUnit
