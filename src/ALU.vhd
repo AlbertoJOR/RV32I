@@ -27,7 +27,7 @@ begin
     begin
         -- Si funct7b5 = '1' y la operación es ADD/SUB, cambia a resta (SUB)
         if funct3 = "000" and funct7b5 = '1' then
-            B_mux := std_logic_vector(signed(B)); -- Tomar complemento a dos para resta (equivalente a -B)
+            B_mux := std_logic_vector(-signed(B)); -- Tomar complemento a dos para resta (equivalente a -B)
         else
             B_mux := B;
         end if;
