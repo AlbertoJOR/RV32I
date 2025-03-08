@@ -19,14 +19,17 @@ architecture Behavioral of InstMem is
         -- Usar el Encoder https://luplab.gitlab.io/rvcodecjs/
         -- Prueba de R y I Arith
         X"00", X"00", X"00", X"00",  -- nop 
-        X"00", X"a0", X"00", X"93",  -- addi x1, x0, 10     -- Cargar 10 en x1  
-        X"01", X"40", X"01", X"13",  -- addi x2, x0, 20     -- Cargar 20 en x2  
-        X"01", X"e0", X"01", X"93",  -- addi x3, x0, 30     -- Cargar 30 en x3  
-        X"02", X"80", X"02", X"13",  -- addi x4, x0, 40     -- Cargar 40 en x4  
-        X"03", X"20", X"02", X"93",  -- addi x5, x0, 50     -- Cargar 50 en x5  
-        X"00", X"20", X"83", X"33",  -- add  x6, x1, x2     -- x6 = x1 + x2  
-        X"00", X"00", X"00", X"00",  -- nop 
-        X"40", X"41", X"83", X"b3",  -- sub  x7, x3, x4     -- x7 = x3 - x4 
+        X"00", X"30", X"02", X"93", -- addi x5, x0, 3 -- Cargar 3 en x5
+        X"00", X"50", X"03", X"13", -- addi x6, x0, 5 -- Cargar 5 en x6
+        X"00", X"a0", X"00", X"93", -- addi x1, x0, 10     -- Cargar 10 en x1  
+        X"01", X"40", X"81", X"13", -- addi x2, x1, 20     -- Suma   x1 mas 20 
+        X"40", X"11", X"01", X"33", -- sub  x2, x2, x1     -- Resta x2 = x2 - x1 
+        X"00", X"21", X"01", X"33", -- add  x2, x2, x2     -- Suma x2 = x2 + x2 
+        X"00", X"20", X"e1", X"b3", -- or  x3, x1, x2     -- OR x3 = x1 or x2 
+        X"00", X"31", X"72", X"33", -- and x4, x2, x3  -- AND x4 = x2 and x3
+        X"00", X"52", X"43", X"b3", -- xor x7, x4, x5  -- XOR x7 = x4 xor x5
+        X"00", X"63", X"94", X"33", -- sll x8, x7, x6  -- shift left x8 = x7 << x6
+        X"00", X"53", X"d4", X"b3", -- srl x9, x7, x5  -- shift right x8 = x7 >> x5
         X"00", X"00", X"00", X"00",  -- nop 
         X"00", X"00", X"00", X"00",  -- nop 
         X"00", X"00", X"00", X"00",  -- nop 

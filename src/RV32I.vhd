@@ -304,7 +304,7 @@ begin
             Read_Reg1_2    => Read_Reg1_2, 
             Read_Reg2_2    => Read_Reg2_2, 
             MuxSel_A       => MuxSel_A_F, 
-            MuxSel_B       => MuxSel_B_f 
+            MuxSel_B       => MuxSel_B_F 
         );
 
 

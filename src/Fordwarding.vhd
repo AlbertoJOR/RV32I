@@ -19,11 +19,10 @@ architecture Behavioral of Fordwarding is
     signal MuxB : STD_LOGIC_VECTOR(1 downto 0) :="00";
 
 begin
-    MuxSel_A <= MuxA;
-    MuxSel_B <= MuxB;
+    MuxSel_A <= MuxA when(Read_Reg1_2 /= "00000") else "00";
+    MuxSel_B <= MuxB when(Read_Reg2_2 /= "00000") else "00";
     process (all)
     begin 
-
         if(RegWrite_3 = '1' and RegWrite_4 = '0' ) then 
             if(Write_Reg_3 = Read_Reg1_2) then 
                 MuxA <= "10";
@@ -53,8 +52,9 @@ begin
         if (RegWrite_4 = '1'and RegWrite_3 = '1' ) then --
             if((Write_Reg_4 = Read_Reg1_2) and (Write_Reg_3 /= Read_Reg1_2)) then 
                 MuxA <= "01";
-            elsif ((Write_Reg_4 /= Read_Reg1_2) and (Write_Reg_3 = Read_Reg1_2)) then
-                
+            elsif ((Write_Reg_4 /= Read_Reg1_2) and (Write_Reg_3 = Read_Reg1_2)) then 
+                MuxA <="10";
+            elsif ((Write_Reg_4 = Read_Reg1_2) and (Write_Reg_3 = Read_Reg1_2)) then 
                 MuxA <="10";
             else 
                 MuxA <="00";
@@ -62,7 +62,8 @@ begin
             if((Write_Reg_4 = Read_Reg2_2)and (Write_Reg_3 /= Read_Reg2_2)) then
                 MuxB <= "01";
             elsif ((Write_Reg_4 /= Read_Reg2_2) and (Write_Reg_3 = Read_Reg2_2)) then
-                
+                MuxB <="10";
+            elsif ((Write_Reg_4 = Read_Reg2_2) and (Write_Reg_3 = Read_Reg2_2)) then
                 MuxB <="10";
             else
                 MuxB <= "00";

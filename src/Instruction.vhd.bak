@@ -28,14 +28,10 @@ begin
                          else inst(19 downto 15); -- lui, jal, auipc requieren en 0 para sumar
     Read_Reg2 <= "00000" when (inst(6 downto 0) = "0110111" or 
                            inst(6 downto 0) = "1101111" or 
-                           inst(6 downto 0) = "0000011" or 
-                           inst(6 downto 0) = "0010011" or 
-                           inst(6 downto 0) = "1100111" or 
                            inst(6 downto 0) = "0010111") 
                          else inst(24 downto 20); -- lui, jal, auipc requieren en 0 para sumar
-    Write_Reg <= "00000" when (inst(6 downto 0) = "0100011" or 
-                           inst(6 downto 0) = "1100011") 
-                         else inst(11 downto 7); -- lui, jal, auipc requieren en 0 para sumar
+    Read_Reg2 <= inst(24 downto 20);
+    Write_Reg <= inst(11 downto 7);
     ALU_inst  <= inst(30) & inst(14 downto 12); 
     funct_3   <= inst(14 downto 12);
     inst_Imm  <= inst;

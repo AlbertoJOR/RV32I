@@ -168,7 +168,7 @@ begin
     ALU_C: ALU 
         port map (
             A          => MUX_A_DATA ,
-            B          => B_input,
+            B          => MUX_B_DATA ,
             ALU_Ctrl   => ALU_CTRL_s,
             Result     => Result_s,
             Zero       => Zero_s

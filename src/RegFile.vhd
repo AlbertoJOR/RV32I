@@ -21,9 +21,9 @@ architecture Behavioral of RegFile is
     signal RF : Reg_Array := (others => (others => '0'));
 begin
     -- LECTURA EN FLANCO BAJO DEL RELOJ
-    process(clk)
+    process(all)
     begin
-        if falling_edge(clk) then
+        if (clk= '0') then
             if Read_Reg1 = "00000" then
                 Read_Data1 <= (others => '0'); -- Registro 0 siempre es 0
             else
@@ -39,9 +39,9 @@ begin
     end process;
 
     -- ESCRITURA EN FLANCO ALTO DEL RELOJ
-    process(clk)
+    process(all)
     begin
-        if rising_edge(clk) then
+        if (clk = '1') then
             if reset = '1' then
                 RF <= (others => (others => '0')); -- Reset síncrono
             elsif (Write_Enable = '1' and Write_Reg /= "00000") then
