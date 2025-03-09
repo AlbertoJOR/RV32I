@@ -26,6 +26,11 @@ entity Mem is
         
         -- RegFile
         Read_Data2_i   : in  STD_LOGIC_VECTOR(31 downto 0);
+        
+        -- PC
+        Branch_pred_i   : in  STD_LOGIC; 
+        PC_Imm_i        : in STD_LOGIC_VECTOR (31 downto 0);
+        PC_4_i          : in  STD_LOGIC_VECTOR (31 downto 0);
 
         --Salidas
                 -- ControlUnit
@@ -41,8 +46,9 @@ entity Mem is
         -- MEM
         Data_mem_o  : out STD_LOGIC_VECTOR(31 downto 0);
         -- PC
-        PCSrc       : out STD_LOGIC
-        -- PC valor real
+        Zero_and_Branch       : out STD_LOGIC;
+        Flush               : out STD_LOGIC;
+        PC_corrected          : out  STD_LOGIC_VECTOR (31 downto 0)
 
     );
 end Mem;
@@ -61,7 +67,20 @@ architecture Structural of Mem is
         );
     end component;
     signal  dout_s     : STD_LOGIC_VECTOR(31 downto 0):=(others => '0'); 
-    signal PCSrc_s : STD_LOGIC:= '0';
+    signal Zero_and_Branch_s : STD_LOGIC:= '0';
+
+    component BMCU is
+        port (
+            Zero_and_Branch:  in STD_LOGIC;
+            Branch_pred: in STD_LOGIC;
+            enable : in STD_LOGIC;
+            PC_4  : in STD_LOGIC_VECTOR(31 downto 0);
+            PC_Imm : in STD_LOGIC_VECTOR(31 downto 0);
+            PC_corrected: out STD_LOGIC_VECTOR(31 downto 0);
+            Flush       : out STD_LOGIC
+            
+        );
+    end component;
 
     component PipeMem is
         Port (
@@ -115,6 +134,19 @@ begin
             funct3   => funct_3_i ,
             dout     => dout_s 
         );
+    Zero_and_Branch_s <= Zero_i and Branch_i;
+    Zero_and_Branch <= Zero_and_Branch_s;
+    
+    BMCU_c: BMCU 
+        port map(
+                Zero_and_Branch    => Zero_and_Branch_s, 
+                Branch_pred        => Branch_pred_i, 
+                enable             => Branch_i, 
+                PC_4               => PC_4_i, 
+                PC_Imm             => PC_Imm_i, 
+                PC_corrected       => PC_corrected, 
+                Flush              =>  Flush
+        );
     
     PipeMem_c:    PipeMem
             Port map(
@@ -149,8 +181,6 @@ begin
                 Data_mem_o  => Data_mem_o
                 
             );
-    PCSrc_s <= Zero_i and Branch_i;
-    PCSrc <= PCSrc_s;
 
     
 end architecture;

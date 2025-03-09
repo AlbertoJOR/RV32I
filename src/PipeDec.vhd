@@ -32,6 +32,10 @@ entity PipeDec is
         -- Fordwarding
         Read_Reg1_i     : in STD_LOGIC_VECTOR(4 downto 0);
         Read_Reg2_i     : in STD_LOGIC_VECTOR(4 downto 0);
+        -- PC 
+        PC_Imm_i        : in  STD_LOGIC_VECTOR (31 downto 0);
+        PC_4_i          : in  STD_LOGIC_VECTOR (31 downto 0);
+        Branch_pred_i   : in STD_LOGIC; -- Predicción si toma el salto
 
 
         -- SALIDAS
@@ -58,7 +62,11 @@ entity PipeDec is
         Read_Data2_o   : out  STD_LOGIC_VECTOR(31 downto 0);
         -- Fordwarding
         Read_Reg1_o     : out STD_LOGIC_VECTOR(4 downto 0);
-        Read_Reg2_o     : out STD_LOGIC_VECTOR(4 downto 0)
+        Read_Reg2_o     : out STD_LOGIC_VECTOR(4 downto 0);
+        -- PC 
+        PC_Imm_o        : out  STD_LOGIC_VECTOR (31 downto 0);
+        PC_4_o          : out  STD_LOGIC_VECTOR (31 downto 0);
+        Branch_pred_o   : out STD_LOGIC -- Predicción si toma el salto
     );
 end PipeDec;
 
@@ -80,6 +88,9 @@ architecture Behavioral of PipeDec is
     signal Read_Data2_reg    :   STD_LOGIC_VECTOR(31 downto 0) := (others => '0');
     signal Read_Reg1_reg       : STD_LOGIC_VECTOR(4 downto 0):=(others => '0');
     signal Read_Reg2_reg       : STD_LOGIC_VECTOR(4 downto 0):=(others => '0');
+    signal PC_Imm_reg           :  STD_LOGIC_VECTOR (31 downto 0):=(others => '0');
+    signal PC_4_reg             :  STD_LOGIC_VECTOR (31 downto 0):=(others => '0');
+    signal Branch_pred_reg   :  STD_LOGIC;
 
 begin
     process(clk)
@@ -102,6 +113,9 @@ begin
                 Read_Data2_reg    <=  (others => '0');
                 Read_Reg1_reg     <=  (others => '0'); 
                 Read_Reg2_reg     <=  (others => '0'); 
+                PC_Imm_reg        <=(others => '0');
+                PC_4_reg          <=(others => '0');
+                Branch_pred_reg   <='0';
         
             else  
                 Jump_reg          <=  Jump_i ;
@@ -120,6 +134,9 @@ begin
                 Read_Data2_reg    <=  Read_Data2_i;
                 Read_Reg1_reg     <=  Read_Reg1_i; 
                 Read_Reg2_reg     <=  Read_Reg2_i; 
+                PC_Imm_reg        <= PC_Imm_i;
+                PC_4_reg          <= PC_4_i;
+                Branch_pred_reg   <= Branch_pred_i;
             end if;
         end if;
     end process;
@@ -139,6 +156,9 @@ begin
     Read_Data2_o    <=  Read_Data2_reg;
     Read_Reg1_o     <= Read_Reg1_reg;
     Read_Reg2_o     <= Read_Reg2_reg;
+    PC_Imm_o        <= PC_Imm_reg;
+    PC_4_o          <= PC_4_reg;
+    Branch_pred_o   <= Branch_pred_reg;
 
 
 end Behavioral;

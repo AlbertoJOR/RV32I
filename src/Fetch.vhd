@@ -7,29 +7,34 @@ entity Fetch is
     Port (
         clk         : in  STD_LOGIC;
         reset       : in  STD_LOGIC;
-        branch      : in  STD_LOGIC;
+        flush       : in STD_LOGIC;
         stall       : in  STD_LOGIC;
-        ImmExt      : in  STD_LOGIC_VECTOR (31 downto 0);
+        Branch_pred_i  : in STD_LOGIC;
+        PC_Imm_i       : in STD_LOGIC_VECTOR(31 downto 0);  
+        PC_corrected_i : in STD_LOGIC_VECTOR(31 downto 0);   
 
         inst : out  STD_LOGIC_VECTOR (31 downto 0);
-        PC_out : out  STD_LOGIC_VECTOR (31 downto 0)
+        PC_out : out  STD_LOGIC_VECTOR (31 downto 0);
+        PC_4_out : out  STD_LOGIC_VECTOR (31 downto 0)
     );
 end Fetch;
-
 architecture Structural of Fetch is
 
     component PC is
-    Port (
+        Port (
         clk         : in  STD_LOGIC;
         reset       : in  STD_LOGIC;
-        branch      : in  STD_LOGIC;
+        Branch_pred      : in  STD_LOGIC;
+        Flush      : in  STD_LOGIC;
         stall       : in  STD_LOGIC;
-        -- stall       : in  STD_LOGIC;
         ImmExt      : in  STD_LOGIC_VECTOR (31 downto 0);
-        PC_out      : out STD_LOGIC_VECTOR (31 downto 0)
+        PC_corrected      : in  STD_LOGIC_VECTOR (31 downto 0);
+        PC_out      : out STD_LOGIC_VECTOR (31 downto 0);
+        PC_4_out      : out STD_LOGIC_VECTOR (31 downto 0)
     );
     end component;
     signal PC_out_s : STD_LOGIC_VECTOR(31 downto 0) := (others => '0'); 
+    signal PC_4_out_s : STD_LOGIC_VECTOR(31 downto 0) := (others => '0'); 
 
     component InstMem is
         generic (
@@ -52,12 +57,15 @@ architecture Structural of Fetch is
             -- Entrada pipe
             inst_i  : in  STD_LOGIC_VECTOR(31 downto 0);
             PC_i    : in  STD_LOGIC_VECTOR(31 downto 0);
+            PC_4_i    : in  STD_LOGIC_VECTOR(31 downto 0);
             
             -- Salida pipe
             inst_o  : out  STD_LOGIC_VECTOR(31 downto 0);
-            PC_o    : out  STD_LOGIC_VECTOR(31 downto 0)
+            PC_o    : out  STD_LOGIC_VECTOR(31 downto 0);
+            PC_4_o    : out  STD_LOGIC_VECTOR(31 downto 0)
         );
     end component;
+    signal reset_or_flush : STD_LOGIC :='0';
 
 begin
     PC_c : PC
@@ -65,9 +73,12 @@ begin
             clk => clk ,
             reset => reset,
             stall => stall,
-            branch => branch,
-            ImmExt => ImmExt,
-            PC_out => PC_out_s
+            Branch_pred => Branch_pred_i,
+            Flush => flush,
+            ImmExt => PC_Imm_i,
+            PC_corrected => PC_corrected_i,
+            PC_out => PC_out_s,
+            PC_4_out => PC_4_out_s
         );
 
     InstMem_c :InstMem
@@ -78,15 +89,17 @@ begin
             addr => PC_out_s,
             inst => inst_s
         );
-
+    reset_or_flush <= reset or flush;
     PipeFetch_c : PipeFetch
         port map (
             clk   => clk,
-            reset   => reset,
+            reset   => reset_or_flush,
             stall => stall,
             inst_i   => inst_s,
             PC_i   => PC_out_s,
+            PC_4_i   => PC_4_out_s,
             inst_o   => inst,
-            PC_o   => PC_out
+            PC_o   => PC_out,
+            PC_4_o   => PC_4_out
         );
 end Structural;

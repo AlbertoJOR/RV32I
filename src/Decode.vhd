@@ -7,8 +7,11 @@ entity Decode is
     Port (
         clk         : in  STD_LOGIC;
         reset       : in  STD_LOGIC;
+        flush       : in STD_LOGIC;
         inst        : in  STD_LOGIC_VECTOR (31 downto 0);
-        PC_val      : in  STD_LOGIC_VECTOR (31 downto 0);
+        PC_i        : in  STD_LOGIC_VECTOR (31 downto 0);
+        PC_4_i      : in  STD_LOGIC_VECTOR (31 downto 0);
+        Branch_pred_i   : in STD_LOGIC; -- Predicción si toma el salto
         nop         : in  STD_LOGIC;
         -- WRITEBACK
         Write_Reg_WB  : in STD_LOGIC_VECTOR(4 downto 0);
@@ -23,6 +26,7 @@ entity Decode is
         MemRead_o    : out STD_LOGIC;
         MemWrite_o   : out STD_LOGIC;
         Branch_o     : out STD_LOGIC;
+        Branch     : out STD_LOGIC;
         ALUOp_o      : out STD_LOGIC_VECTOR(1 downto 0);
         
         -- ImmGen
@@ -43,8 +47,12 @@ entity Decode is
 
         -- Hazard
         Read_Reg1_Ho     : out STD_LOGIC_VECTOR(4 downto 0);
-        Read_Reg2_Ho     : out STD_LOGIC_VECTOR(4 downto 0)
-
+        Read_Reg2_Ho     : out STD_LOGIC_VECTOR(4 downto 0);
+        -- PC
+        PC_Imm          : out  STD_LOGIC_VECTOR (31 downto 0);
+        PC_Imm_o        : out  STD_LOGIC_VECTOR (31 downto 0);
+        PC_4_o          : out  STD_LOGIC_VECTOR (31 downto 0);
+        Branch_pred_o   : out STD_LOGIC -- Predicción si toma el salto
     );
 end Decode;
 architecture Structural of Decode is
@@ -82,6 +90,8 @@ architecture Structural of Decode is
     );
     end component;
 
+
+
     signal Jump_s          :  STD_LOGIC := '0';
     signal ALUSrc_s        :  STD_LOGIC := '0';
     signal MemtoReg_s      :  STD_LOGIC := '0';
@@ -113,6 +123,15 @@ architecture Structural of Decode is
         );
     end component;
 
+    component Adder is
+        Port (
+            A     : in  STD_LOGIC_VECTOR(31 downto 0);
+            B     : in  STD_LOGIC_VECTOR(31 downto 0);
+            Sum   : out STD_LOGIC_VECTOR(31 downto 0)
+        );
+    end component;
+    signal PC_Imm_s         :   STD_LOGIC_VECTOR(31 downto 0)  := (others => '0');
+
     component PipeDec is
     Port (
         clk   : in  STD_LOGIC;
@@ -143,6 +162,10 @@ architecture Structural of Decode is
         -- Fordwarding
         Read_Reg1_i     : in STD_LOGIC_VECTOR(4 downto 0);
         Read_Reg2_i     : in STD_LOGIC_VECTOR(4 downto 0);
+        -- PC
+        PC_Imm_i        : in  STD_LOGIC_VECTOR (31 downto 0);
+        PC_4_i          : in  STD_LOGIC_VECTOR (31 downto 0);
+        Branch_pred_i   : in STD_LOGIC;-- Predicción si toma el salto
 
 
         -- SALIDAS
@@ -170,7 +193,12 @@ architecture Structural of Decode is
         
         -- Fordwarding
         Read_Reg1_o     : out STD_LOGIC_VECTOR(4 downto 0);
-        Read_Reg2_o     : out STD_LOGIC_VECTOR(4 downto 0)
+        Read_Reg2_o     : out STD_LOGIC_VECTOR(4 downto 0);
+        -- PC
+        PC_Imm_o        : out  STD_LOGIC_VECTOR (31 downto 0);
+        PC_4_o          : out  STD_LOGIC_VECTOR (31 downto 0);
+        Branch_pred_o   : out STD_LOGIC -- Predicción si toma el salto
+
     );
     end component;
 
@@ -180,6 +208,8 @@ architecture Structural of Decode is
     signal Write_Reg_s     :   STD_LOGIC_VECTOR(4 downto 0)  := (others => '0');
     signal Read_Data1_s    :   STD_LOGIC_VECTOR(31 downto 0) := (others => '0');
     signal Read_Data2_s    :   STD_LOGIC_VECTOR(31 downto 0) := (others => '0');
+    
+    signal reset_or_flush : STD_LOGIC :='0';
 
 
 
@@ -209,6 +239,7 @@ begin
         Branch     =>  Branch_s  ,
         ALUOp      =>  ALUOp_s 
     );
+    Branch <= Branch_s; -- Branch predictor
 
     RegFile_c : RegFile 
         port map (
@@ -230,11 +261,19 @@ begin
             instr    =>inst_Imm_s, 
             imm_out  =>imm_out_s
         );
+    PC_Adder : Adder 
+            Port map(
+                A    => PC_i, 
+                B    => imm_out_s, 
+                Sum  => PC_Imm_s 
+            );
+    PC_Imm <= PC_Imm_s; -- salida para el PC counter
+    reset_or_flush <= reset or flush;
     
     PipeDec_c : PipeDec 
     port map (
         clk  => clk, 
-        reset => reset,
+        reset => reset_or_flush,
 
         -- ENTRADAS
         -- ControlUnit
@@ -262,6 +301,10 @@ begin
         -- Fordwarding
         Read_Reg1_i   => Read_Reg1_s, 
         Read_Reg2_i   => Read_Reg2_s,
+        -- PC
+        PC_Imm_i     => PC_Imm_s ,  
+        PC_4_i       => PC_4_i,  
+        Branch_pred_i => Branch_pred_i, 
 
         -- SALIDAS
         -- ControlUnit
@@ -287,7 +330,11 @@ begin
         Read_Data2_o  => Read_Data2_o,
                 -- Fordwarding
         Read_Reg1_o   => Read_Reg1_o, 
-        Read_Reg2_o   => Read_Reg2_o 
+        Read_Reg2_o   => Read_Reg2_o ,
+        -- PC
+        PC_Imm_o     => PC_Imm_o,  
+        PC_4_o       => PC_4_o ,
+        Branch_pred_o => Branch_pred_o 
     );
 
 end Structural;

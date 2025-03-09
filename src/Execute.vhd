@@ -7,6 +7,7 @@ entity Execute is
     Port (
         clk         : in  STD_LOGIC;
         reset       : in  STD_LOGIC;
+        flush       : in STD_LOGIC;
 
                 -- ControlUnit
         Jump_i       : in STD_LOGIC;
@@ -35,6 +36,10 @@ entity Execute is
         MuxSel_B_i        : in STD_LOGIC_VECTOR(1 downto 0);
         Result_3_i        : in STD_LOGIC_VECTOR(31 downto 0);
         Write_Data_5_i        : in STD_LOGIC_VECTOR(31 downto 0);
+        -- PC
+        Branch_pred_i   : in  STD_LOGIC; 
+        PC_Imm_i        : in STD_LOGIC_VECTOR (31 downto 0);
+        PC_4_i          : in  STD_LOGIC_VECTOR (31 downto 0);
 
         -- Salidas
         -- ControlUnit
@@ -54,7 +59,11 @@ entity Execute is
         Result_o     : out STD_LOGIC_VECTOR(31 downto 0); 
         
         -- RegFile
-        Read_Data2_o   : out  STD_LOGIC_VECTOR(31 downto 0)
+        Read_Data2_o   : out  STD_LOGIC_VECTOR(31 downto 0);
+        -- PC
+        Branch_pred_o   : out  STD_LOGIC; 
+        PC_Imm_o        : out STD_LOGIC_VECTOR (31 downto 0);
+        PC_4_o          : out  STD_LOGIC_VECTOR (31 downto 0)
     );
 end Execute;
 architecture Structural of Execute is
@@ -105,6 +114,10 @@ architecture Structural of Execute is
         
         --RegFile
         Read_Data2_i   : in  STD_LOGIC_VECTOR(31 downto 0);
+        -- PC
+        Branch_pred_i   : in  STD_LOGIC; 
+        PC_Imm_i        : in STD_LOGIC_VECTOR (31 downto 0);
+        PC_4_i          : in  STD_LOGIC_VECTOR (31 downto 0);
 
 
         -- SALIDAS
@@ -125,12 +138,18 @@ architecture Structural of Execute is
         Result_o     : out STD_LOGIC_VECTOR(31 downto 0); 
         
         -- RegFile
-        Read_Data2_o   : out  STD_LOGIC_VECTOR(31 downto 0)
+        Read_Data2_o   : out  STD_LOGIC_VECTOR(31 downto 0);
+        -- PC
+        Branch_pred_o   : out  STD_LOGIC; 
+        PC_Imm_o        : out STD_LOGIC_VECTOR (31 downto 0);
+        PC_4_o          : out  STD_LOGIC_VECTOR (31 downto 0)
     );
     end component;
     -- Fordwarding Mux
     signal MUX_A_DATA : STD_LOGIC_VECTOR(31 downto 0) := (others => '0');
     signal MUX_B_DATA : STD_LOGIC_VECTOR(31 downto 0) := (others => '0');
+
+    signal reset_or_flush : STD_LOGIC :='0';
 
 begin
 
@@ -180,11 +199,11 @@ begin
         ALUOp    => ALUOp_i,
         ALU_CTRL => ALU_CTRL_s 
     );
-
+    reset_or_flush <= reset or flush;
     PipeEx_c: PipeEx 
     Port map (
         clk   => clk, 
-        reset => reset,
+        reset => reset_or_flush,
 
         -- ENTRADAS
         -- ControlUnit
@@ -206,6 +225,10 @@ begin
         
         --RegFile
         Read_Data2_i  => Read_Data2_i,
+        -- PC
+        Branch_pred_i  => Branch_pred_i, 
+        PC_Imm_i       => PC_Imm_i, 
+        PC_4_i         => PC_4_i ,
 
 
         -- SALIDAS
@@ -226,7 +249,11 @@ begin
         Result_o     => Result_o,
         
         -- RegFile
-        Read_Data2_o => Read_Data2_o
+        Read_Data2_o => Read_Data2_o,
+        -- PC
+        Branch_pred_o  => Branch_pred_o, 
+        PC_Imm_o       => PC_Imm_o, 
+        PC_4_o         => PC_4_o 
     );
 
 

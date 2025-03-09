@@ -27,6 +27,11 @@ entity PipeEx is
         
         --RegFile
         Read_Data2_i   : in  STD_LOGIC_VECTOR(31 downto 0);
+        
+        -- PC
+        Branch_pred_i   : in  STD_LOGIC; 
+        PC_Imm_i        : in  STD_LOGIC_VECTOR (31 downto 0);
+        PC_4_i          : in  STD_LOGIC_VECTOR (31 downto 0);
 
 
         -- SALIDAS
@@ -47,13 +52,18 @@ entity PipeEx is
         Result_o     : out STD_LOGIC_VECTOR(31 downto 0); 
         
         -- RegFile
-        Read_Data2_o   : out  STD_LOGIC_VECTOR(31 downto 0)
+        Read_Data2_o   : out  STD_LOGIC_VECTOR(31 downto 0);
+        -- PC
+        Branch_pred_o   : out  STD_LOGIC; 
+        PC_Imm_o        : out  STD_LOGIC_VECTOR (31 downto 0);
+        PC_4_o          : out  STD_LOGIC_VECTOR (31 downto 0)
     );
 end PipeEx;
 
 architecture Behavioral of PipeEx is
 
     signal reg        :  STD_LOGIC_VECTOR(78 downto 0) := (others =>'0');
+    signal PC_reg        :  STD_LOGIC_VECTOR(64 downto 0) := (others =>'0');
 
 begin
     process(clk)
@@ -61,9 +71,11 @@ begin
         if rising_edge(clk) then
             if reset = '1' then  -- Reset sincrónico
                reg         <=  (others => '0');
+               PC_reg         <=  (others => '0');
             else  
                 reg    <=  Jump_i & MemtoReg_i & RegWrite_i & MemRead_i & MemWrite_i
                         & Branch_i & funct_3_i & Write_Reg_i & Zero_i & Result_i & Read_Data2_i;
+                PC_reg <= Branch_pred_i & PC_Imm_i & PC_4_i;
             end if;
         end if;
     end process;
@@ -78,4 +90,7 @@ begin
     Zero_o          <= reg(64); 
     Result_o        <= reg(63 downto 32); 
     Read_Data2_o    <= reg(31 downto 0); 
+    Branch_pred_o   <= PC_reg(64);
+    PC_Imm_o        <= PC_reg(63 downto 32);
+    PC_4_o          <= PC_reg(31 downto 0);
     end Behavioral;
