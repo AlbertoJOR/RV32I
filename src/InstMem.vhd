@@ -52,6 +52,11 @@ architecture Behavioral of InstMem is
         X"00", X"00", X"83", X"83", -- lb  x7, 0(x1)      -- Cargar byte desde [x1] a x7
         X"00", X"60", X"a4", X"03", -- lw  x8, 6(x1)      -- Cargar halfword desde [x1] a x6  
         X"00", X"80", X"a4", X"83", -- lw  x9, 8(x1)      -- Cargar halfword desde [x1] a x6  
+        -- Hazard prueba
+        -- X"00", X"84", X"83", X"33", -- add x6, x9, x8   
+        X"00", X"94", X"83", X"33", -- add x6, x9, x9   
+        X"00", X"43", X"03", X"13", -- addi x6, x6, 4
+        X"00", X"43", X"03", X"13", -- addi x6, x6, 4
         others => X"00"  -- Relleno con 0s
         -- x2 = 0x1234 5678
         -- Addr    Byte
