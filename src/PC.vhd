@@ -9,7 +9,7 @@ entity PC is
         clk         : in  STD_LOGIC;
         reset       : in  STD_LOGIC;
         branch      : in  STD_LOGIC;
-        -- stall       : in  STD_LOGIC;
+        stall       : in  STD_LOGIC;
         ImmExt      : in  STD_LOGIC_VECTOR (31 downto 0);
         PC_out      : out STD_LOGIC_VECTOR (31 downto 0)
     );
@@ -27,7 +27,7 @@ begin
     -- Proceso para actualizar el registro del PC
     process(clk, reset)
     begin
-        if rising_edge(clk) then
+        if (rising_edge(clk) and stall = '0')then
             if reset = '1' then
                 PC_reg <= (others => '0');         -- Reset síncrono: inicializa el PC a 0
             else

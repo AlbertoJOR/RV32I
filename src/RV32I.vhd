@@ -16,7 +16,7 @@ architecture Structural of RV32I is
             clk         : in  STD_LOGIC;
             reset       : in  STD_LOGIC;
             branch      : in  STD_LOGIC;
-            -- stall       : in  STD_LOGIC;
+            stall       : in  STD_LOGIC;
             ImmExt      : in  STD_LOGIC_VECTOR (31 downto 0);
     
             inst : out  STD_LOGIC_VECTOR (31 downto 0);
@@ -25,6 +25,23 @@ architecture Structural of RV32I is
     end component;
     signal inst_1   :  STD_LOGIC_VECTOR (31 downto 0) := (others =>'0');
     signal PC_out_1 :  STD_LOGIC_VECTOR (31 downto 0) := (others =>'0');
+
+    -- Hazard Unit
+    component Hazard is
+        port (
+            
+            Write_Reg_2        : in STD_LOGIC_VECTOR(4 downto 0);
+            Read_Reg1_1     : in STD_LOGIC_VECTOR(4 downto 0);
+            Read_Reg2_1     : in STD_LOGIC_VECTOR(4 downto 0);
+            MemRead_2     : in STD_LOGIC;
+            nop    : out STD_LOGIC
+       
+        );
+    end component;
+    -- Hazard
+    signal nop_hazard    : STD_LOGIC := '0';        
+    signal Read_Reg1_1     : STD_LOGIC_VECTOR(4 downto 0) :=(others => '0');
+    signal Read_Reg2_1     : STD_LOGIC_VECTOR(4 downto 0) :=(others => '0');
 
     -- II Decode Instruction
     component Decode is
@@ -63,7 +80,11 @@ architecture Structural of RV32I is
 
             -- Fordwarding
             Read_Reg1_o     : out STD_LOGIC_VECTOR(4 downto 0);
-            Read_Reg2_o     : out STD_LOGIC_VECTOR(4 downto 0)
+            Read_Reg2_o     : out STD_LOGIC_VECTOR(4 downto 0);
+            
+            -- Hazard
+            Read_Reg1_Ho     : out STD_LOGIC_VECTOR(4 downto 0);
+            Read_Reg2_Ho     : out STD_LOGIC_VECTOR(4 downto 0)
     
         );
     end component;
@@ -248,7 +269,7 @@ begin
             clk         => clk,
             reset       => reset,
             branch      => PCSrc_4,
-            -- stall       : in  STD_LOGIC;
+            stall       => nop_hazard, 
             ImmExt      => ImmExt_4,
     
             inst        => inst_1, 
@@ -257,13 +278,24 @@ begin
 
     Write_Data_5 <= Data_mem_4 when MemtoReg_4 ='1' else Result_4; 
 
+    Hazard_c : Hazard
+        port map(
+            
+            Write_Reg_2  => Write_Reg_2, 
+            Read_Reg1_1  => Read_Reg1_1, 
+            Read_Reg2_1  => Read_Reg2_1, 
+            MemRead_2    => MemRead_2, 
+            nop          => nop_hazard 
+       
+        );
+
     Decode_c : Decode 
             Port map(
                 clk         =>  clk ,
                 reset       => reset, 
                 inst        => inst_1,
                 PC_val      => PC_out_1, 
-                nop         => nop, 
+                nop         => nop_hazard, 
                 -- WRITEBACK
                 Write_Reg_WB  => Write_Reg_4,
                 RegWrite_WB   => RegWrite_4,
@@ -290,8 +322,12 @@ begin
                 -- RegFile
                 Read_Data1_o  => Read_Data1_2,
                 Read_Data2_o  => Read_Data2_2,
+                -- Fordward
                 Read_Reg1_o   => Read_Reg1_2, 
-                Read_Reg2_o   => Read_Reg2_2
+                Read_Reg2_o   => Read_Reg2_2,
+                -- Hazard
+                Read_Reg1_Ho  => Read_Reg1_1,   
+                Read_Reg2_Ho  => Read_Reg2_1   
         
             );
 

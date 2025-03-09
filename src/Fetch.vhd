@@ -8,7 +8,7 @@ entity Fetch is
         clk         : in  STD_LOGIC;
         reset       : in  STD_LOGIC;
         branch      : in  STD_LOGIC;
-        -- stall       : in  STD_LOGIC;
+        stall       : in  STD_LOGIC;
         ImmExt      : in  STD_LOGIC_VECTOR (31 downto 0);
 
         inst : out  STD_LOGIC_VECTOR (31 downto 0);
@@ -23,6 +23,7 @@ architecture Structural of Fetch is
         clk         : in  STD_LOGIC;
         reset       : in  STD_LOGIC;
         branch      : in  STD_LOGIC;
+        stall       : in  STD_LOGIC;
         -- stall       : in  STD_LOGIC;
         ImmExt      : in  STD_LOGIC_VECTOR (31 downto 0);
         PC_out      : out STD_LOGIC_VECTOR (31 downto 0)
@@ -47,6 +48,7 @@ architecture Structural of Fetch is
         Port (
             clk   : in  STD_LOGIC;
             reset : in  STD_LOGIC;
+            stall       : in  STD_LOGIC;
             -- Entrada pipe
             inst_i  : in  STD_LOGIC_VECTOR(31 downto 0);
             PC_i    : in  STD_LOGIC_VECTOR(31 downto 0);
@@ -62,6 +64,7 @@ begin
         port map(
             clk => clk ,
             reset => reset,
+            stall => stall,
             branch => branch,
             ImmExt => ImmExt,
             PC_out => PC_out_s
@@ -80,6 +83,7 @@ begin
         port map (
             clk   => clk,
             reset   => reset,
+            stall => stall,
             inst_i   => inst_s,
             PC_i   => PC_out_s,
             inst_o   => inst,

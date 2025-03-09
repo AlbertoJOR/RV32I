@@ -6,6 +6,7 @@ entity PipeFetch is
     Port (
         clk   : in  STD_LOGIC;
         reset : in  STD_LOGIC;
+        stall : in  STD_LOGIC;
         -- Entrada pipe
         inst_i  : in  STD_LOGIC_VECTOR(31 downto 0);
         PC_i    : in  STD_LOGIC_VECTOR(31 downto 0);
@@ -22,7 +23,7 @@ architecture Behavioral of PipeFetch is
 begin
     process(clk)
     begin
-        if rising_edge(clk) then
+        if (rising_edge(clk) and stall = '0') then
             if reset = '1' then  -- Reset sincrónico
                 PC_reg <= (others => '0');
                 inst_reg <= (others => '0');

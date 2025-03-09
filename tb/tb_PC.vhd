@@ -19,6 +19,7 @@ begin
     uut: entity work.PC
         port map (
             clk     => clk,
+            stall   => '0',
             reset   => reset,
             branch  => branch,
             ImmExt  => ImmExt,

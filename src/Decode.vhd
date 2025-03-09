@@ -39,7 +39,11 @@ entity Decode is
 
         -- Fordwarding
         Read_Reg1_o     : out STD_LOGIC_VECTOR(4 downto 0);
-        Read_Reg2_o     : out STD_LOGIC_VECTOR(4 downto 0)
+        Read_Reg2_o     : out STD_LOGIC_VECTOR(4 downto 0);
+
+        -- Hazard
+        Read_Reg1_Ho     : out STD_LOGIC_VECTOR(4 downto 0);
+        Read_Reg2_Ho     : out STD_LOGIC_VECTOR(4 downto 0)
 
     );
 end Decode;
@@ -218,6 +222,8 @@ begin
             Read_Data1      => Read_Data1_s,
             Read_Data2      => Read_Data2_s 
         );
+    Read_Reg2_Ho <= Read_Reg2_s;
+    Read_Reg1_Ho <= Read_Reg1_s;
     
     ImmGen_c : ImmGen 
         port map (
