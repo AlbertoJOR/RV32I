@@ -81,6 +81,7 @@ architecture Structural of Mem is
             
         );
     end component;
+    signal Result_PC_4     :  STD_LOGIC_VECTOR(31 downto 0):= (others => '0'); 
 
     component PipeMem is
         Port (
@@ -147,6 +148,7 @@ begin
                 PC_corrected       => PC_corrected, 
                 Flush              =>  Flush
         );
+    Result_PC_4 <= PC_4_i when Jump_i ='1' else Result_i;
     
     PipeMem_c:    PipeMem
             Port map(
@@ -161,7 +163,7 @@ begin
         
         
                 -- ALU 
-                Result_i    => Result_i, 
+                Result_i    => Result_PC_4, 
         
                 -- MEM
                 Data_mem_i  => dout_s , 

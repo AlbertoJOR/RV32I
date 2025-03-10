@@ -20,6 +20,7 @@ entity Decode is
 
                 -- ControlUnit
         Jump_o       : out STD_LOGIC;
+        Jump     : out STD_LOGIC;
         ALUSrc_o     : out STD_LOGIC;
         MemtoReg_o   : out STD_LOGIC;
         RegWrite_o   : out STD_LOGIC;
@@ -80,6 +81,7 @@ architecture Structural of Decode is
         reset        : in STD_LOGIC;
         nop        : in STD_LOGIC;
         Jump       : out STD_LOGIC;
+        Jalr     : out STD_LOGIC;
         ALUSrc     : out STD_LOGIC;
         MemtoReg   : out STD_LOGIC;
         RegWrite   : out STD_LOGIC;
@@ -93,6 +95,7 @@ architecture Structural of Decode is
 
 
     signal Jump_s          :  STD_LOGIC := '0';
+    signal Jalr_s          :  STD_LOGIC := '0';
     signal ALUSrc_s        :  STD_LOGIC := '0';
     signal MemtoReg_s      :  STD_LOGIC := '0';
     signal RegWrite_s      :  STD_LOGIC := '0';
@@ -131,6 +134,7 @@ architecture Structural of Decode is
         );
     end component;
     signal PC_Imm_s         :   STD_LOGIC_VECTOR(31 downto 0)  := (others => '0');
+    signal PC_Read_Data1    :   STD_LOGIC_VECTOR(31 downto 0)  := (others => '0');
 
     component PipeDec is
     Port (
@@ -231,6 +235,7 @@ begin
         reset      => reset   , 
         nop        => nop , 
         Jump       =>  Jump_s   ,
+        Jalr       => Jalr_s, 
         ALUSrc     =>  ALUSrc_s  ,
         MemtoReg   =>  MemtoReg_s  ,
         RegWrite   =>  RegWrite_s  ,
@@ -240,6 +245,7 @@ begin
         ALUOp      =>  ALUOp_s 
     );
     Branch <= Branch_s; -- Branch predictor
+    Jump <= Jump_s; -- Branch predictor
 
     RegFile_c : RegFile 
         port map (
@@ -261,9 +267,10 @@ begin
             instr    =>inst_Imm_s, 
             imm_out  =>imm_out_s
         );
+    PC_Read_Data1 <= Read_Data1_s when Jalr_s = '1' else PC_i;
     PC_Adder : Adder 
             Port map(
-                A    => PC_i, 
+                A    => PC_Read_Data1, 
                 B    => imm_out_s, 
                 Sum  => PC_Imm_s 
             );

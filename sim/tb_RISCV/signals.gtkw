@@ -1,12 +1,12 @@
 [*]
 [*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
-[*] Sun Mar  9 03:08:22 2025
+[*] Mon Mar 10 01:18:31 2025
 [*]
 [dumpfile] "/home/ajor/Documents/GitHub/RV32I/sim/tb_RISCV/wave.vcd"
-[dumpfile_mtime] "Sun Mar  9 03:01:57 2025"
-[dumpfile_size] 117685
+[dumpfile_mtime] "Mon Mar 10 01:18:12 2025"
+[dumpfile_size] 169663
 [savefile] "/home/ajor/Documents/GitHub/RV32I/sim/tb_RISCV/signals.gtkw"
-[timestart] 370980000
+[timestart] 407390000
 [size] 2880 1686
 [pos] 0 0
 *-22.000000 405330000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1

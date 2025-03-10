@@ -80,6 +80,7 @@ architecture Structural of RV32I is
 
                 -- ControlUnit
         Jump_o       : out STD_LOGIC;
+        Jump       : out STD_LOGIC;
         ALUSrc_o     : out STD_LOGIC;
         MemtoReg_o   : out STD_LOGIC;
         RegWrite_o   : out STD_LOGIC;
@@ -116,6 +117,7 @@ architecture Structural of RV32I is
     );
     end component;
     signal Jump_2       : STD_LOGIC:= '0';
+    signal Jump_1       : STD_LOGIC:= '0';
     signal ALUSrc_2     : STD_LOGIC:= '0';
     signal MemtoReg_2   : STD_LOGIC:= '0';
     signal RegWrite_2   : STD_LOGIC:= '0';
@@ -141,6 +143,8 @@ architecture Structural of RV32I is
     signal PC_Imm_2 :  STD_LOGIC_VECTOR (31 downto 0) := (others =>'0');
     signal PC_4_2 :  STD_LOGIC_VECTOR (31 downto 0) := (others =>'0');
     signal Branch_pred_2: STD_LOGIC :='0';
+
+    signal Branch_or_Jump       : STD_LOGIC:= '0';
 
 
     -- Fordwarding Unit
@@ -320,12 +324,13 @@ architecture Structural of RV32I is
     signal Write_Data_5 : STD_LOGIC_VECTOR(31 downto 0) := ( others => '0');
 
 begin
+    Branch_or_Jump <= Branch_pred_s or Jump_1;
 
     Fetch_c: Fetch
         Port map (
             clk         => clk,
             reset       => reset,
-            Branch_pred_i =>  Branch_pred_s ,-- BranchPredictor
+            Branch_pred_i =>  Branch_or_Jump ,-- BranchPredictor or Jump
             flush       =>  Flush_4,
             stall       => nop_hazard, 
             PC_Imm_i      => PC_Imm_1,

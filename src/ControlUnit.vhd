@@ -8,6 +8,7 @@ entity ControlUnit is
         reset        : in STD_LOGIC;
         nop        : in STD_LOGIC;
         Jump     : out STD_LOGIC;
+        Jalr     : out STD_LOGIC;
         ALUSrc     : out STD_LOGIC;
         MemtoReg   : out STD_LOGIC;
         RegWrite   : out STD_LOGIC;
@@ -24,6 +25,7 @@ begin
     begin
         if (reset = '1' or nop = '1') then 
                 Jump   <= '0';
+                Jalr   <= '0'; 
                 ALUSrc   <= '0';
                 MemtoReg <= '0';
                 RegWrite <= '0';
@@ -37,6 +39,7 @@ begin
             -- opcode(3)
             when "0000011" => 
                 Jump     <= '0';
+                Jalr   <= '0'; 
                 ALUSrc   <= '1';
                 MemtoReg <= '1';
                 RegWrite <= '1';
@@ -49,6 +52,7 @@ begin
             -- opcode(19)
             when "0010011" => 
                 Jump     <= '0';
+                Jalr   <= '0'; 
                 ALUSrc   <= '1';
                 MemtoReg <= '0';
                 RegWrite <= '1';
@@ -61,6 +65,7 @@ begin
             -- opcode(23)
             when "0010111" => 
                 Jump     <= '0';
+                Jalr   <= '0'; 
                 ALUSrc   <= '0';
                 MemtoReg <= '0';
                 RegWrite <= '0';
@@ -74,6 +79,7 @@ begin
             -- opcode(35)
             when "0100011" => 
                 Jump     <= '0';
+                Jalr   <= '0'; 
                 ALUSrc   <= '1';
                 MemtoReg <= '0';
                 RegWrite <= '0';
@@ -86,6 +92,7 @@ begin
             -- opcode(51)
             when "0110011" => 
                 Jump     <= '0';
+                Jalr   <= '0'; 
                 ALUSrc   <= '0';
                 MemtoReg <= '0';
                 RegWrite <= '1';
@@ -98,6 +105,7 @@ begin
             -- opcode(55)
             when "0110111" => 
                 Jump     <= '0';
+                Jalr   <= '0'; 
                 ALUSrc   <= '1';
                 MemtoReg <= '0';
                 RegWrite <= '1';
@@ -111,6 +119,7 @@ begin
             -- opcode(99)
             when "1100011" => 
                 Jump     <= '0';
+                Jalr   <= '0'; 
                 ALUSrc   <= '0';
                 MemtoReg <= '0';
                 RegWrite <= '0';
@@ -122,7 +131,8 @@ begin
             -- jalr 
             -- opcode(103)
             when "1100111" => 
-                Jump     <= '1';
+                Jump     <= '1';-- selector para guardar PC + 4
+                Jalr   <= '1'; 
                 ALUSrc   <= '0';
                 MemtoReg <= '0';
                 RegWrite <= '1';
@@ -135,6 +145,7 @@ begin
             -- opcode(101)
             when "1101111" => 
                 Jump     <= '1';
+                Jalr   <= '0'; 
                 ALUSrc   <= '0';
                 MemtoReg <= '0';
                 RegWrite <= '1';
@@ -146,6 +157,7 @@ begin
             
             when others =>
                 Jump   <= '0';
+                Jalr   <= '0'; 
                 ALUSrc   <= '0';
                 MemtoReg <= '0';
                 RegWrite <= '0';
