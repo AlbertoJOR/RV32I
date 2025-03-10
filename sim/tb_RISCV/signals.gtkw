@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
-[*] Mon Mar 10 01:18:31 2025
+[*] Mon Mar 10 03:00:55 2025
 [*]
 [dumpfile] "/home/ajor/Documents/GitHub/RV32I/sim/tb_RISCV/wave.vcd"
-[dumpfile_mtime] "Mon Mar 10 01:18:12 2025"
-[dumpfile_size] 169663
+[dumpfile_mtime] "Mon Mar 10 02:06:12 2025"
+[dumpfile_size] 314234
 [savefile] "/home/ajor/Documents/GitHub/RV32I/sim/tb_RISCV/signals.gtkw"
-[timestart] 407390000
+[timestart] 528680000
 [size] 2880 1686
 [pos] 0 0
-*-22.000000 405330000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-22.000000 552410000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] tb_riscv.
 [treeopen] tb_riscv.dut.
 [treeopen] tb_riscv.dut.decode_c.
@@ -17,7 +17,7 @@
 [treeopen] tb_riscv.dut.fetch_c.
 [treeopen] tb_riscv.dut.mem_c.
 [sst_width] 388
-[signals_width] 354
+[signals_width] 372
 [sst_expanded] 1
 [sst_vpaned_height] 499
 @28
@@ -27,6 +27,9 @@ tb_riscv.reset
 -PC
 @22
 tb_riscv.dut.fetch_c.pc_c.pc_out[31:0]
+tb_riscv.dut.fetch_c.instmem_c.inst[31:0]
+@23
+tb_riscv.dut.fetch_c.instmem_c.addr[31:0]
 @200
 -ROMInst
 @22
@@ -42,7 +45,22 @@ tb_riscv.dut.decode_c.instruction_c.write_reg[4:0]
 @22
 tb_riscv.dut.decode_c.instruction_c.opcode[6:0]
 @200
+-Jump
+@22
+tb_riscv.dut.decode_c.pc_read_data1[31:0]
+tb_riscv.dut.decode_c.pc_imm_s[31:0]
+@200
 -ControlU
+@22
+tb_riscv.dut.mem_c.bmcu_c.pc_corrected[31:0]
+@28
+tb_riscv.dut.fetch_c.pc_c.branch_pred
+tb_riscv.dut.jump_1
+tb_riscv.dut.decode_c.controlunit_c.jump
+tb_riscv.dut.decode_c.jump
+tb_riscv.dut.decode_c.controlunit_c.branch
+tb_riscv.dut.decode_c.controlunit_c.jalr
+tb_riscv.dut.decode_c.controlunit_c.jump
 @22
 tb_riscv.dut.decode_c.controlunit_c.opcode[6:0]
 @28
@@ -73,11 +91,12 @@ tb_riscv.dut.decode_c.immgen_c.imm_out[31:0]
 @200
 -ALU
 @28
+tb_riscv.dut.execute_c.alu_c.zero
 tb_riscv.dut.execute_c.alu_c.alu_ctrl[4:0]
 tb_riscv.dut.execute_c.alu_c.funct7b5
 @22
 tb_riscv.dut.execute_c.alu_c.a[31:0]
-@23
+@24
 tb_riscv.dut.execute_c.alu_c.b[31:0]
 @420
 tb_riscv.dut.execute_c.alu_c.result[31:0]
@@ -111,5 +130,9 @@ tb_riscv.dut.mem_c.ram_c.dout[31:0]
 @28
 tb_riscv.dut.mem_c.ram_c.we
 tb_riscv.dut.memwrite_3
+tb_riscv.dut.mem_c.bmcu_c.branch_pred
+tb_riscv.dut.mem_c.bmcu_c.flush
+tb_riscv.dut.mem_c.bmcu_c.enable
+tb_riscv.dut.mem_c.bmcu_c.zero_and_branch
 [pattern_trace] 1
 [pattern_trace] 0

@@ -57,6 +57,19 @@ architecture Behavioral of InstMem is
         X"00", X"94", X"83", X"33", -- add x6, x9, x9   
         X"00", X"43", X"03", X"13", -- addi x6, x6, 4
         X"00", X"43", X"03", X"13", -- addi x6, x6, 4
+        X"00", X"00", X"00", X"00",  -- nop 
+        X"00", X"00", X"00", X"00",  -- nop 
+        X"00", X"00", X"00", X"00",  -- nop 
+        X"00", X"00", X"02", X"93", -- addi x5, x0, 0          -- t0 = x = 0
+        X"00", X"00", X"03", X"13", -- addi x6, x0, 0          -- t1 = y = 0
+        X"00", X"a0", X"03", X"93", -- addi x7, x0, 10         -- t1 = y = 0
+        -- Bucle
+        X"00", X"73", X"58", X"63", -- bge x6, x7, 16   -- Si y >= 10, salir del bucle
+        X"00", X"22", X"82", X"93", -- addi x5, x5, 2   -- x += 2
+        X"00", X"13", X"03", X"13", -- addi x6, x6, 1   -- y += 1
+        X"ff", X"5f", X"f0", X"6f", -- jal x0, -12      -- Saltar al inicio del bucle sin guardar retorno
+
+
         others => X"00"  -- Relleno con 0s
         -- x2 = 0x1234 5678
         -- Addr    Byte

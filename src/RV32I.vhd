@@ -380,6 +380,7 @@ begin
         
                         -- ControlUnit
                 Jump_o       => Jump_2,
+                Jump         => Jump_1,
                 ALUSrc_o     => ALUSrc_2,
                 MemtoReg_o   => MemtoReg_2,
                 RegWrite_o   => RegWrite_2,

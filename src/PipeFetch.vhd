@@ -33,6 +33,7 @@ begin
                 inst_reg <= (others => '0');
             else  
                 PC_reg <= PC_i;
+                PC_4_reg <= PC_4_i;
                 inst_reg <= inst_i;
             end if;
         end if;
