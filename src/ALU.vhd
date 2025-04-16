@@ -22,7 +22,7 @@ begin
     funct7b5 <= ALU_Ctrl(3); -- valor del bit numero 5 de funct7
     isBranch <= ALU_Ctrl(4);
     
-    process(all)
+    process(A, B, ALU_Ctrl)
         variable B_mux : STD_LOGIC_VECTOR(31 downto 0);
     begin
         -- Si funct7b5 = '1' y la operación es ADD/SUB, cambia a resta (SUB)
@@ -86,24 +86,48 @@ begin
         -- Si es una instrucción de comparación (BEQ/BNE), establecer Zero
         if isBranch = '1' then
             if funct3 = "000" then -- BEQ
-                Zero <= '1' when A = B else '0';
+                if A = B then
+                    Zero <= '1';
+                else
+                    Zero <= '0';
+                end if;
             elsif funct3 = "001" then -- BNE
-                Zero <= '1' when A /= B else '0';
+                if A /= B then
+                    Zero <= '1';
+                else
+                    Zero <= '0';
+                end if;
             elsif funct3 = "100" then -- BLT
-                Zero <= '1' when signed(A) < signed(B) else '0';
+                if signed(A) < signed(B) then
+                    Zero <= '1';
+                else
+                    Zero <= '0';
+                end if;
             elsif funct3 = "101" then -- BGE
-                Zero <= '1' when signed(A) >= signed(B) else '0';
+                if signed(A) >= signed(B) then
+                    Zero <= '1';
+                else
+                    Zero <= '0';
+                end if;
             elsif funct3 = "110" then -- BLTU
-                Zero <= '1' when unsigned(A) < unsigned(B) else '0';
+                if unsigned(A) < unsigned(B) then
+                    Zero <= '1';
+                else
+                    Zero <= '0';
+                end if;
             elsif funct3 = "111" then -- BGEU
-                Zero <= '1' when unsigned(A) >= unsigned(B) else '0';
+                if unsigned(A) >= unsigned(B) then
+                    Zero <= '1';
+                else
+                    Zero <= '0';
+                end if;
             else
                 Zero <= '0';
             end if;
         else
-            Zero <= '0'; -- No es comparación, Zero en bajo
+            Zero <= '0'; -- No es instrucción de salto condicional
         end if;
-        
+
         -- Asignar resultado
         Result <= alu_result;
     end process;

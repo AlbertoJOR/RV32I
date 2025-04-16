@@ -21,7 +21,7 @@ architecture Behavioral of RegFile is
     signal RF : Reg_Array := (others => (others => '0'));
 begin
     -- LECTURA EN FLANCO BAJO DEL RELOJ
-    process(all)
+    process(clk, reset, Read_Reg1, Read_Reg2, Write_Reg, Write_Data, Write_Enable)
     begin
         if (clk= '0') then
             if Read_Reg1 = "00000" then
@@ -39,7 +39,7 @@ begin
     end process;
 
     -- ESCRITURA EN FLANCO ALTO DEL RELOJ
-    process(all)
+    process(clk, reset, Read_Reg1, Read_Reg2, Write_Reg, Write_Data, Write_Enable)
     begin
         if (clk = '1') then
             if reset = '1' then

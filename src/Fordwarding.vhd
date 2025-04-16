@@ -21,7 +21,7 @@ architecture Behavioral of Fordwarding is
 begin
     MuxSel_A <= MuxA when(Read_Reg1_2 /= "00000") else "00";
     MuxSel_B <= MuxB when(Read_Reg2_2 /= "00000") else "00";
-    process (all)
+    process (Write_Reg_3, Write_Reg_4, RegWrite_3, RegWrite_4, Read_Reg1_2, Read_Reg2_2)
     begin 
         if(RegWrite_3 = '1' and RegWrite_4 = '0' ) then 
             if(Write_Reg_3 = Read_Reg1_2) then 

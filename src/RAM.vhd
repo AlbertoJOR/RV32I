@@ -58,14 +58,24 @@ begin
         case funct3 is
             when "010" => -- lw (Load Word)
                 dout_aux <= memory(aligned_addr+3) & memory(aligned_addr+2) & memory(aligned_addr+1) & memory(aligned_addr);
-            when "001" => -- lh (Load Halfword)
+            when "001" | "101" => -- lh / lhu (Load Halfword)
                 -- Extensión de signo de 16 bits
                 dout_aux(15 downto 0) <= memory(aligned_addr+1) & memory(aligned_addr);  -- Lee 2 bytes
-                dout_aux(31 downto 16) <= (others => dout_aux(15)); -- Extiende el bit más significativo a 16 bits
-            when "000" => -- lb (Load Byte)
+                
+                if funct3 = "001" then
+                    dout_aux(31 downto 16) <= (others => dout_aux(15)); -- Extiende el bit más significativo a 16 bits
+                else
+                    dout_aux(31 downto 16) <= (others => '0'); -- Extiende el bit más significativo a 16 bits
+                end if;
+
+            when "000" | "100" => -- lb / lbu (Load Byte)
                 -- Extensión de signo de 8 bits
                 dout_aux(7 downto 0) <= memory(aligned_addr);   -- Lee 1 byte
-                dout_aux(31 downto 8) <= (others => dout_aux(7));   -- Extiende el bit más significativo a 24 bits
+                if funct3 = "000" then
+                    dout_aux(31 downto 8) <= (others => dout_aux(7));   -- Extiende el bit más significativo a 24 bits
+                else
+                    dout_aux(31 downto 8) <= (others => '0');   -- Extiende el bit más significativo a 24 bits
+                end if;
             when others => 
                 dout_aux <= (others => '0'); -- Para cualquier otro caso
         end case;

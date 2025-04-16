@@ -1,0 +1,4 @@
+[state]
+00 IDLE
+01 W_RE
+10 WR_T

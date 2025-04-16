@@ -4,7 +4,7 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity InstMem is
     generic (
-        ROM_SIZE : integer := 256  -- Tamaño de la ROM en bytes 
+        ROM_SIZE : integer := 1024  -- Tamaño de la ROM en bytes 
     );
     port (
         addr    : in  std_logic_vector(31 downto 0); 

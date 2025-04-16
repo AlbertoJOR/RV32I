@@ -1,0 +1,38 @@
+[*]
+[*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
+[*] Wed Apr 16 04:10:11 2025
+[*]
+[dumpfile] "/home/ajor/Documents/GitHub/RV32ILety/sim/tb_cache_miss_2/wave.vcd"
+[dumpfile_mtime] "Wed Apr 16 04:08:47 2025"
+[dumpfile_size] 9662
+[savefile] "/home/ajor/Documents/GitHub/RV32ILety/sim/tb_cache_miss_2/signals.gtkw"
+[timestart] 187340000
+[size] 2880 1674
+[pos] -1 -1
+*-23.000000 44640000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] tb_cache_miss_2.
+[treeopen] tb_cache_miss_2.uut.
+[sst_width] 388
+[signals_width] 246
+[sst_expanded] 1
+[sst_vpaned_height] 495
+@29
+tb_cache_miss_2.clk
+@28
+tb_cache_miss_2.sim_done
+@2028
+^1 /home/ajor/Documents/GitHub/RV32ILety/sim/tb_cache_miss_2/state.sav
+tb_cache_miss_2.uut.state[1:0]
+@28
+tb_cache_miss_2.reset
+tb_cache_miss_2.re
+tb_cache_miss_2.we
+tb_cache_miss_2.miss
+@22
+tb_cache_miss_2.addr[31:0]
+tb_cache_miss_2.din[31:0]
+tb_cache_miss_2.dout[31:0]
+@28
+tb_cache_miss_2.funct3[2:0]
+[pattern_trace] 1
+[pattern_trace] 0

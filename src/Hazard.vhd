@@ -15,7 +15,7 @@ end entity;
 architecture Behavioral of Hazard is
 
 begin
-Hazardpro : process (all)
+Hazardpro : process (Write_Reg_2, Read_Reg1_1, Read_Reg2_1, MemRead_2)
 begin 
     if (MemRead_2 = '1' and ((Read_Reg1_1 = Write_Reg_2)or (Read_Reg2_1 = Write_Reg_2))) then
         nop <= '1';

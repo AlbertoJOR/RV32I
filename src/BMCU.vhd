@@ -22,7 +22,7 @@ architecture Behavioral of BMCU is
 
 begin
     anBR <= Zero_and_Branch & Branch_pred;
-    process (all)
+    process (Zero_and_Branch, Branch_pred, enable, PC_4, PC_Imm)
     begin 
     if (enable = '1') then
         case anBR is 

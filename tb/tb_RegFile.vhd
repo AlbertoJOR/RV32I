@@ -117,7 +117,7 @@ begin
         Read_Reg2 <= "00000";
         wait for clk_period / 2;
 
-        -- FIN DE LA SIMULACIÓN
+        -- FIN DE LA SIMULACION
         wait;
     end process;
 
