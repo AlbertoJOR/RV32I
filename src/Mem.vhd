@@ -48,24 +48,31 @@ entity Mem is
         -- PC
         Zero_and_Branch       : out STD_LOGIC;
         Flush               : out STD_LOGIC;
-        PC_corrected          : out  STD_LOGIC_VECTOR (31 downto 0)
+        PC_corrected          : out  STD_LOGIC_VECTOR (31 downto 0);
+        -- Cache
+        miss                : out STD_LOGIC
 
     );
 end Mem;
 architecture Structural of Mem is
 
-    component RAM is
+    component Cache is 
+        generic (
+            CACHE_SIZE : integer := 64  -- número de líneas de caché (potencia de 2)
+        );
         Port (
             clk      : in  STD_LOGIC;
-            reset    : in  STD_LOGIC;  
-            we       : in  STD_LOGIC;  
-            re       : in  STD_LOGIC;  
+            reset    : in  STD_LOGIC;
             addr     : in  STD_LOGIC_VECTOR(31 downto 0);
             din      : in  STD_LOGIC_VECTOR(31 downto 0);
-            funct3   : in  STD_LOGIC_VECTOR(2 downto 0); 
-            dout     : out STD_LOGIC_VECTOR(31 downto 0) 
+            we       : in  STD_LOGIC;
+            re       : in  STD_LOGIC;
+            funct3   : in  STD_LOGIC_VECTOR(2 downto 0);
+            dout     : out STD_LOGIC_VECTOR(31 downto 0);
+            miss     : out STD_LOGIC
         );
     end component;
+
     signal  dout_s     : STD_LOGIC_VECTOR(31 downto 0):=(others => '0'); 
     signal Zero_and_Branch_s : STD_LOGIC:= '0';
 
@@ -124,7 +131,10 @@ architecture Structural of Mem is
 
 begin
 
-    RAM_C : RAM 
+    Cache_c : Cache
+        generic map (
+            CACHE_SIZE => 4
+        )
         Port map (
             clk      => clk,
             reset    => reset,
@@ -133,7 +143,8 @@ begin
             addr     => Result_i ,
             din      => Read_Data2_i,
             funct3   => funct_3_i ,
-            dout     => dout_s 
+            dout     => dout_s,
+            miss     => miss
         );
     Zero_and_Branch_s <= Zero_i and Branch_i;
     Zero_and_Branch <= Zero_and_Branch_s;

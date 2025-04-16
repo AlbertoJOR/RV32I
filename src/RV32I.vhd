@@ -68,6 +68,7 @@ architecture Structural of RV32I is
         clk         : in  STD_LOGIC;
         reset       : in  STD_LOGIC;
         flush       : in  STD_LOGIC;
+        stall       : in  STD_LOGIC;
         inst        : in  STD_LOGIC_VECTOR (31 downto 0);
         PC_i        : in  STD_LOGIC_VECTOR (31 downto 0);
         PC_4_i      : in  STD_LOGIC_VECTOR (31 downto 0);
@@ -171,6 +172,7 @@ architecture Structural of RV32I is
         clk         : in  STD_LOGIC;
         reset       : in  STD_LOGIC;
         flush       : in  STD_LOGIC;
+        stall       : in  STD_LOGIC;
 
                 -- ControlUnit
         Jump_i       : in STD_LOGIC;
@@ -292,6 +294,8 @@ architecture Structural of RV32I is
         
         -- MEM
         Data_mem_o  : out STD_LOGIC_VECTOR(31 downto 0);
+        -- Cache
+        miss        : out STD_LOGIC;
         -- PC
         Zero_and_Branch       : out STD_LOGIC;
         Flush               : out STD_LOGIC;
@@ -309,6 +313,9 @@ architecture Structural of RV32I is
             signal Data_mem_4   :  STD_LOGIC_VECTOR(31 downto 0) := (others =>'0');
             -- PC
             signal PCSrc_4        : STD_LOGIC := '0';
+            -- CACHE
+            signal cache_miss     : STD_LOGIC := '0';
+            signal nop_miss       : STD_LOGIC := '0';
             
             
         -- Program Counter
@@ -325,6 +332,7 @@ architecture Structural of RV32I is
 
 begin
     Branch_or_Jump <= Branch_pred_s or Jump_1;
+    nop_miss <= nop_hazard or cache_miss;
 
     Fetch_c: Fetch
         Port map (
@@ -332,7 +340,7 @@ begin
             reset       => reset,
             Branch_pred_i =>  Branch_or_Jump ,-- BranchPredictor or Jump
             flush       =>  Flush_4,
-            stall       => nop_hazard, 
+            stall       => nop_miss, 
             PC_Imm_i      => PC_Imm_1,
             PC_corrected_i => PC_corrected_4        ,
             inst        => inst_1, 
@@ -367,6 +375,7 @@ begin
             Port map(
                 clk         =>  clk ,
                 reset       => reset, 
+                stall       => cache_miss,
                 flush       =>  Flush_4,
                 inst        => inst_1,
                 PC_i        => PC_out_1, 
@@ -432,6 +441,7 @@ begin
             clk         => clk,
             reset       => reset,
             flush       =>  Flush_4,
+            stall       => cache_miss,
     
                     -- ControlUnit
             Jump_i       => Jump_2,
@@ -535,7 +545,10 @@ begin
             -- PC
             Zero_and_Branch    =>Zero_and_Branch_4, 
             Flush              =>Flush_4, 
-            PC_corrected       => PC_corrected_4
+            PC_corrected       => PC_corrected_4,
+            -- Cache
+            miss       => cache_miss
+
     
         );
 

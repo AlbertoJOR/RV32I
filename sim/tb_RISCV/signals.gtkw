@@ -1,21 +1,22 @@
 [*]
 [*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
-[*] Wed Apr 16 17:41:00 2025
+[*] Wed Apr 16 23:30:47 2025
 [*]
 [dumpfile] "/home/ajor/Documents/GitHub/RV32I/sim/tb_RISCV/wave.vcd"
-[dumpfile_mtime] "Wed Apr 16 17:40:35 2025"
-[dumpfile_size] 323745
+[dumpfile_mtime] "Wed Apr 16 23:24:47 2025"
+[dumpfile_size] 328861
 [savefile] "/home/ajor/Documents/GitHub/RV32I/sim/tb_RISCV/signals.gtkw"
-[timestart] 0
+[timestart] 388120000
 [size] 2880 1674
 [pos] 0 0
-*-23.000000 475110000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-23.000000 280000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] tb_riscv.
 [treeopen] tb_riscv.dut.
 [treeopen] tb_riscv.dut.decode_c.
 [treeopen] tb_riscv.dut.execute_c.
 [treeopen] tb_riscv.dut.fetch_c.
 [treeopen] tb_riscv.dut.mem_c.
+[treeopen] tb_riscv.dut.mem_c.cache_c.
 [sst_width] 388
 [signals_width] 372
 [sst_expanded] 1
@@ -77,7 +78,7 @@ tb_riscv.dut.decode_c.regfile_c.read_data2[31:0]
 tb_riscv.dut.decode_c.regfile_c.write_enable
 @24
 tb_riscv.dut.decode_c.regfile_c.write_reg[4:0]
-@25
+@22
 [color] 2
 tb_riscv.dut.decode_c.regfile_c.write_data[31:0]
 @200
@@ -120,18 +121,22 @@ tb_riscv.dut.execute_c.mux_a_data[31:0]
 @200
 -RAM
 @28
-tb_riscv.dut.mem_c.ram_c.funct3[2:0]
-tb_riscv.dut.mem_c.ram_c.re
-@22
-tb_riscv.dut.mem_c.ram_c.addr[31:0]
-tb_riscv.dut.mem_c.ram_c.din[31:0]
-tb_riscv.dut.mem_c.ram_c.dout[31:0]
-@28
-tb_riscv.dut.mem_c.ram_c.we
 tb_riscv.dut.memwrite_3
 tb_riscv.dut.mem_c.bmcu_c.branch_pred
 tb_riscv.dut.mem_c.bmcu_c.flush
 tb_riscv.dut.mem_c.bmcu_c.enable
 tb_riscv.dut.mem_c.bmcu_c.zero_and_branch
+@200
+-cache
+@28
+[color] 2
+tb_riscv.dut.mem_c.cache_c.miss
+tb_riscv.dut.mem_c.cache_c.funct3[2:0]
+tb_riscv.dut.mem_c.cache_c.re
+@29
+tb_riscv.dut.mem_c.cache_c.we
+@22
+tb_riscv.dut.mem_c.cache_c.addr[31:0]
+tb_riscv.dut.mem_c.cache_c.dout[31:0]
 [pattern_trace] 1
 [pattern_trace] 0
