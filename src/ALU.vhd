@@ -22,7 +22,7 @@ begin
     funct7b5 <= ALU_Ctrl(3); -- valor del bit numero 5 de funct7
     isBranch <= ALU_Ctrl(4);
     
-    process(A, B, ALU_Ctrl)
+    process(A,B,ALU_Ctrl, alu_result, funct3, funct7b5, isBranch)
         variable B_mux : STD_LOGIC_VECTOR(31 downto 0);
     begin
         -- Si funct7b5 = '1' y la operación es ADD/SUB, cambia a resta (SUB)
