@@ -35,6 +35,7 @@ architecture Structural of Fetch is
     end component;
     signal PC_out_s : STD_LOGIC_VECTOR(31 downto 0) := (others => '0'); 
     signal PC_4_out_s : STD_LOGIC_VECTOR(31 downto 0) := (others => '0'); 
+    signal inst_aux : STD_LOGIC_VECTOR(31 downto 0) := (others => '0'); 
 
     component InstMem is
         generic (
@@ -90,12 +91,13 @@ begin
             inst => inst_s
         );
     reset_or_flush <= reset or flush;
+    inst_aux <= inst_s when Branch_pred_i = '0' else (others => '0');
     PipeFetch_c : PipeFetch
         port map (
             clk   => clk,
             reset   => reset_or_flush,
             stall => stall,
-            inst_i   => inst_s,
+            inst_i   => inst_aux,
             PC_i   => PC_out_s,
             PC_4_i   => PC_4_out_s,
             inst_o   => inst,

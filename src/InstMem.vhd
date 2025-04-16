@@ -59,6 +59,8 @@ architecture Behavioral of InstMem is
         X"00", X"22", X"82", X"93", -- addi x5, x5, 2   -- x += 2
         X"00", X"13", X"03", X"13", -- addi x6, x6, 1   -- y += 1
         X"ff", X"5f", X"f0", X"6f", -- jal x0, -12      -- Saltar al inicio del bucle sin guardar a registro
+        X"00", X"13", X"03", X"13", -- addi x6, x6, 1   -- y += 1
+        X"00", X"13", X"03", X"13", -- addi x6, x6, 1   -- y += 1
 
 
 
