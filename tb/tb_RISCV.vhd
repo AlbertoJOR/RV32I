@@ -37,7 +37,7 @@ begin
         begin
             -- Apply reset at the beginning
             reset <= '1';  -- Activate reset
-            wait for clk_period;  -- Wait for one clock cycle with reset active
+            wait for 2* clk_period;  -- Wait for one clock cycle with reset active
             reset <= '0'; 
             wait;  -- Wait for one clock cycle with reset active
         end process;

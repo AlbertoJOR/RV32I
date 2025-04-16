@@ -6,6 +6,7 @@ entity PipeDec is
     Port (
         clk   : in  STD_LOGIC;
         reset : in  STD_LOGIC;
+        stall : in  STD_LOGIC;
 
         -- ENTRADAS
         -- ControlUnit
@@ -95,7 +96,7 @@ architecture Behavioral of PipeDec is
 begin
     process(clk)
     begin
-        if rising_edge(clk) then
+        if (rising_edge(clk) and stall = '0') then
             if reset = '1' then  -- Reset sincrónico
                 Jump_reg          <=  '0';
                 ALUSrc_reg        <=  '0';

@@ -7,6 +7,7 @@ entity Decode is
     Port (
         clk         : in  STD_LOGIC;
         reset       : in  STD_LOGIC;
+        stall       : in  STD_LOGIC;
         flush       : in STD_LOGIC;
         inst        : in  STD_LOGIC_VECTOR (31 downto 0);
         PC_i        : in  STD_LOGIC_VECTOR (31 downto 0);
@@ -140,6 +141,7 @@ architecture Structural of Decode is
     Port (
         clk   : in  STD_LOGIC;
         reset : in  STD_LOGIC;
+        stall       : in  STD_LOGIC;
 
         -- ENTRADAS
         -- ControlUnit
@@ -281,6 +283,7 @@ begin
     port map (
         clk  => clk, 
         reset => reset_or_flush,
+        stall => stall,
 
         -- ENTRADAS
         -- ControlUnit

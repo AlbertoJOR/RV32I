@@ -171,6 +171,28 @@ begin
         read_mem(x"00000100", F3_WORD);
 
         down_sig;
+        wait_cycles(2);
+        write_mem(x"00000104", x"E1E2E3E4", F3_HALF); 
+        wait_cycles(1);
+        write_mem(x"00000108", x"F1F2F3F4", F3_BYTE);
+        wait_cycles(1);
+        down_sig;
+        read_mem(x"00000104", F3_WORD);
+        read_mem(x"00000108", F3_WORD);
+        read_mem(x"00000114", F3_HALF_U);
+        wait_cycles(2);
+        read_mem(x"00000114", F3_WORD);
+        read_mem(x"00000118", F3_BYTE_U);
+        wait_cycles(2);
+        read_mem(x"00000118", F3_WORD);
+        read_mem(x"00000104", F3_HALF);
+        wait_cycles(2);
+        read_mem(x"00000104", F3_WORD);
+        read_mem(x"00000108", F3_BYTE);
+        wait_cycles(2);
+        read_mem(x"00000108", F3_WORD);
+        down_sig;
+
 
 
         

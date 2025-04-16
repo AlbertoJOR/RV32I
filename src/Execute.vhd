@@ -7,6 +7,7 @@ entity Execute is
     Port (
         clk         : in  STD_LOGIC;
         reset       : in  STD_LOGIC;
+        stall       : in  STD_LOGIC;
         flush       : in STD_LOGIC;
 
                 -- ControlUnit
@@ -93,6 +94,7 @@ architecture Structural of Execute is
     Port (
         clk   : in  STD_LOGIC;
         reset : in  STD_LOGIC;
+        stall       : in  STD_LOGIC;
 
         -- ENTRADAS
         -- ControlUnit
@@ -204,6 +206,7 @@ begin
     Port map (
         clk   => clk, 
         reset => reset_or_flush,
+        stall => stall,
 
         -- ENTRADAS
         -- ControlUnit

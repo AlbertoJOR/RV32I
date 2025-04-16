@@ -1,27 +1,26 @@
 [*]
 [*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
-[*] Wed Apr 16 04:10:11 2025
+[*] Wed Apr 16 21:38:05 2025
 [*]
-[dumpfile] "/home/ajor/Documents/GitHub/RV32ILety/sim/tb_cache_miss_2/wave.vcd"
-[dumpfile_mtime] "Wed Apr 16 04:08:47 2025"
-[dumpfile_size] 9662
-[savefile] "/home/ajor/Documents/GitHub/RV32ILety/sim/tb_cache_miss_2/signals.gtkw"
-[timestart] 187340000
+[dumpfile] "/home/ajor/Documents/GitHub/RV32I/sim/tb_cache_miss_2/wave.vcd"
+[dumpfile_mtime] "Wed Apr 16 21:36:31 2025"
+[dumpfile_size] 16695
+[savefile] "/home/ajor/Documents/GitHub/RV32I/sim/tb_cache_miss_2/signals.gtkw"
+[timestart] 422160000
 [size] 2880 1674
 [pos] -1 -1
-*-23.000000 44640000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-23.000000 445480000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] tb_cache_miss_2.
 [treeopen] tb_cache_miss_2.uut.
 [sst_width] 388
 [signals_width] 246
 [sst_expanded] 1
 [sst_vpaned_height] 495
-@29
-tb_cache_miss_2.clk
 @28
+tb_cache_miss_2.clk
 tb_cache_miss_2.sim_done
 @2028
-^1 /home/ajor/Documents/GitHub/RV32ILety/sim/tb_cache_miss_2/state.sav
+^1 /home/ajor/Documents/GitHub/RV32I/sim/tb_cache_miss_2/state.sav
 tb_cache_miss_2.uut.state[1:0]
 @28
 tb_cache_miss_2.reset
@@ -32,7 +31,16 @@ tb_cache_miss_2.miss
 tb_cache_miss_2.addr[31:0]
 tb_cache_miss_2.din[31:0]
 tb_cache_miss_2.dout[31:0]
-@28
+@2028
+^2 /home/ajor/Documents/GitHub/RV32I/sim/tb_cache_miss_2/funct3.sav
 tb_cache_miss_2.funct3[2:0]
+@22
+tb_cache_miss_2.uut.ram_inst.din[31:0]
+@28
+tb_cache_miss_2.uut.ram_inst.funct3[2:0]
+@22
+tb_cache_miss_2.uut.ram_inst.dout[31:0]
+@29
+tb_cache_miss_2.uut.ram_inst.we
 [pattern_trace] 1
 [pattern_trace] 0

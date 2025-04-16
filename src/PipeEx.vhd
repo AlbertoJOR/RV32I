@@ -6,6 +6,7 @@ entity PipeEx is
     Port (
         clk   : in  STD_LOGIC;
         reset : in  STD_LOGIC;
+        stall : in  STD_LOGIC;
 
         -- ENTRADAS
         -- ControlUnit
@@ -68,7 +69,7 @@ architecture Behavioral of PipeEx is
 begin
     process(clk)
     begin
-        if rising_edge(clk) then
+        if (rising_edge(clk) and stall = '0') then
             if reset = '1' then  -- Reset sincrónico
                reg         <=  (others => '0');
                PC_reg         <=  (others => '0');

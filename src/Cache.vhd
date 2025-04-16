@@ -48,13 +48,14 @@ architecture Behavioral of Cache is
     -- signal dout_reg  : STD_LOGIC_VECTOR(31 downto 0) := (others => '0');
 
     signal miss_int  : STD_LOGIC := '0';
+    signal ram_we : STD_LOGIC := '0';
 
 
     signal state : STD_LOGIC_VECTOR(1 downto 0) := "00";
 
     constant IDLE          : STD_LOGIC_VECTOR(1 downto 0) := "00";
     constant WAIT_READ     : STD_LOGIC_VECTOR(1 downto 0) := "01";
-    constant WRITE_THROUGH : STD_LOGIC_VECTOR(1 downto 0) := "10";
+    constant WRITE_HB      : STD_LOGIC_VECTOR(1 downto 0) := "10";
 
     -- funct3 codes
     constant F3_BYTE    : STD_LOGIC_VECTOR(2 downto 0) := "000";
@@ -85,7 +86,7 @@ begin
     hit        <= '1' when valid(index) = '1' and tag(index) = addr_tag else '0';
 
     -- Miss flag combinacional
-    miss_int <= '1' when (re = '1' and hit = '0') else '0';
+    miss_int <= '1' when ((re = '1' and hit = '0') or (we = '1' and(funct3 = F3_HALF or funct3 = F3_BYTE) and state = IDLE)) else '0';
     miss <= miss_int;
 
     -- Selección de salida: combinacional si hit, registrada si miss
@@ -96,7 +97,7 @@ begin
     ram_funct3 <= F3_WORD when ram_re = '1' else funct3;
 
     -- Combinacional para lectura inmediata
-    process(clk, reset, addr, din, we, re, funct3, byte_offset, data, index, ram_dout)
+    process(clk, reset, addr, din, we, re, funct3, byte_offset, data, index, ram_dout, miss)
         variable temp_byte : STD_LOGIC_VECTOR(7 downto 0);
         variable temp_half : STD_LOGIC_VECTOR(15 downto 0);
     begin
@@ -141,12 +142,14 @@ begin
         end if;
     end process;
 
+    ram_we <= we when state = IDLE else '0';
+
     -- Memoria principal
     RAM_inst : RAM
         port map (
             clk    => clk,
             reset  => reset,
-            we     => we,
+            we     => ram_we,
             re     => ram_re,
             addr   => addr,
             din    => din,
@@ -201,7 +204,13 @@ begin
                             tag(index)   <= addr_tag;
                             valid(index) <= '1';
 
-                            state  <= IDLE;
+                            if(funct3 = F3_BYTE or funct3 = F3_HALF)then
+                                state  <= WRITE_HB;
+                                ram_re <= '1';
+                            else
+                                state  <= IDLE;
+                                ram_re <= '0';
+                            end if;
                         end if;
 
                     when WAIT_READ =>
@@ -212,12 +221,18 @@ begin
                       --  dout_reg      <= ram_dout; -- capturamos valor para miss
                         state         <= IDLE;
 
-                    when WRITE_THROUGH =>
-                        state  <= IDLE;
+                    when WRITE_HB =>
+                        ram_re <= '0';
+                        data(index)   <= ram_dout;
+                        tag(index)    <= addr_tag;
+                        valid(index)  <= '1';
+                      --  dout_reg      <= ram_dout; -- capturamos valor para miss
+                        state         <= IDLE;
+
                     when others =>
                         valid     <= (others => '0');
                         ram_re    <= '0';
-                        state     <= IDLE;
+                        state     <= IDLE; --
                        -- dout_reg  <= (others => '0');
                 end case;
             end if;
