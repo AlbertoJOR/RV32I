@@ -1,0 +1,21 @@
+        -- Prueba Cache
+        X"00", X"00", X"00", X"00",  -- nop 
+        X"a1", X"a2", X"a1", X"37", -- lui x2, 0xA1A2A      x2 = 0xA1A2A000
+        X"3a", X"41", X"61", X"13", -- ori x2, x2, 0x3A4    x2 = 0xA1A2A3A4
+        X"06", X"40", X"05", X"13", -- addi x10, x0, 100    x10 = 100        Dirección base
+        X"00", X"25", X"20", X"23", -- sw  x2, 0(x10)       [100 + 0] = 0xA1A2A3A4
+        X"b1", X"b2", X"b1", X"37", -- lui x2, 0xB1B2B      x2 = 0xB1B2B000
+        X"3b", X"41", X"61", X"13", -- ori x2, x2, 0x3B4    x2 = 0xB1B2B3B4
+        X"00", X"25", X"22", X"23", -- sw  x2, 4(x10)       [100 + 4] = 0xB1B2B3B4
+        X"c1", X"c2", X"c1", X"37", -- lui x2, 0xC1C2C      x2 = 0xC1C2C000
+        X"3c", X"41", X"61", X"13", -- ori x2, x2, 0x3C4    x2 = 0xC1C2C3C4
+        X"00", X"25", X"24", X"23", -- sw  x2, 8(x10)       [100 + 8] = 0xC1C2C3C4
+        X"d1", X"d2", X"d1", X"37", -- lui x2, 0xD1D2D      x2 = 0xD1D2D000
+        X"3d", X"41", X"61", X"13", -- ori x2, x2, 0x3D4    x2 = 0xD1D2D3D4
+        X"00", X"25", X"26", X"23", -- sw  x2, 12(x10)      [100 + 12] = 0xD1D2D3D4
+        X"e5", X"e6", X"e1", X"37", -- lui x2, 0xE5E6E      x2 = 0xE5E6E000
+        X"7e", X"81", X"61", X"13", -- ori x2, x2, 0x7E8    x2 = 0xE5E6E6E8
+        X"00", X"25", X"28", X"23", -- sw  x2, 16(x10)      [100 + 16] = 0xE5E6E6E8
+        X"f5", X"f6", X"f1", X"37", -- lui x2, 0xF5F6F      x2 = 0xF5F6F000
+        X"7f", X"81", X"61", X"13", -- ori x2, x2, 0x7F8    x2 = 0xF5F6F7F8
+        X"00", X"25", X"2a", X"23", -- sw  x2, 20(x10)      [100 + 20] = 0xF5F6F7F8

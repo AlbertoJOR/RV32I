@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
-[*] Thu Apr 17 00:40:05 2025
+[*] Wed Apr 16 23:30:47 2025
 [*]
 [dumpfile] "/home/ajor/Documents/GitHub/RV32I/sim/tb_RISCV/wave.vcd"
-[dumpfile_mtime] "Thu Apr 17 00:35:47 2025"
-[dumpfile_size] 211656
+[dumpfile_mtime] "Wed Apr 16 23:24:47 2025"
+[dumpfile_size] 328861
 [savefile] "/home/ajor/Documents/GitHub/RV32I/sim/tb_RISCV/signals.gtkw"
-[timestart] 202330000
+[timestart] 388120000
 [size] 2880 1674
 [pos] 0 0
-*-23.000000 257190000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-23.000000 280000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] tb_riscv.
 [treeopen] tb_riscv.dut.
 [treeopen] tb_riscv.dut.decode_c.
@@ -133,9 +133,8 @@ tb_riscv.dut.mem_c.bmcu_c.zero_and_branch
 tb_riscv.dut.mem_c.cache_c.miss
 tb_riscv.dut.mem_c.cache_c.funct3[2:0]
 tb_riscv.dut.mem_c.cache_c.re
+@29
 tb_riscv.dut.mem_c.cache_c.we
-@23
-tb_riscv.dut.mem_c.cache_c.din[31:0]
 @22
 tb_riscv.dut.mem_c.cache_c.addr[31:0]
 tb_riscv.dut.mem_c.cache_c.dout[31:0]
